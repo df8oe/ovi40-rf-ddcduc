@@ -8,8 +8,10 @@
 
 module i2s (
    input _reset,
-   input BCLK,
-   input LRCLK,
+//   input BCLK,
+   input SAICLK,
+   output reg BCLK,
+   output reg LRCLK,
    input DIN,
    output DOUT,
    input [23:0] _rx_real,
@@ -17,6 +19,27 @@ module i2s (
    output [15:0] tx_real,
    output [15:0] tx_imag
 );
+
+// generation of BCLK from SAICLK
+reg div2_clks;
+
+always @(posedge SAICLK) begin div2_clks <= ~div2_clks; end
+always @(posedge div2_clks) begin BCLK <= ~BCLK; end
+
+
+// generation of LRCLK from BCLK
+reg div2_clk;
+reg div4_clk;
+reg div8_clk;
+reg div16_clk;
+reg div32_clk;
+
+always @(posedge BCLK) begin div2_clk <= ~div2_clk; end
+always @(posedge div2_clk) begin div4_clk <= ~div4_clk; end
+always @(posedge div4_clk) begin div8_clk <= ~div8_clk; end
+always @(posedge div8_clk) begin div16_clk <= ~div16_clk; end
+always @(posedge div16_clk) begin div32_clk <= ~div32_clk; end
+always @(posedge div32_clk) begin LRCLK <= ~LRCLK; end
 
 wire [23:0] rx_real;
 cdc_sync #(24)

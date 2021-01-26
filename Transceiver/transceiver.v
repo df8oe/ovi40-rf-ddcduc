@@ -14,8 +14,8 @@ module Transceiver(
     // I2S bus, master mode
     input DIN,
     output DOUT,
-    input BCLK,
-    input LRCLK,
+    output BCLK,
+    output LRCLK,
     output MCLK,
 
     // I2C slave control bus
@@ -43,28 +43,29 @@ module Transceiver(
     output test2,
     output test3,
     output test4
+
     );
 
     assign test1 = rx_clock;
-    assign test2 = clock_16M;
-    assign test3 = clock_2M;
+    assign test2 = SAICLK;
+    assign test3 = BCLK;
     assign test4 = clock_100k;
 
 
     assign dac_clock = rx_clock;
     assign _10M_out = _10M_in;
-    assign MCLK = clock_16M & lock_rx;
+    assign MCLK = ~SAICLK & lock_rx;
     assign nRES = reset;
     assign dummy_1 = 0;
     assign dummy_2 = 0;
 
     // PLL 1
-    wire rx_clock, clock_16M, clock_2M, lock_rx;
-    pll_rx prx (adc_clock, rx_clock, clock_16M, clock_2M, lock_rx);
+    wire rx_clock, SAICLK, TUCLK, lock_rx;
+    pll_rx prx (adc_clock, rx_clock, SAICLK, TUCLK, lock_rx);
 
     // PLL 2
-    wire clock_100k, lock_10;
-    pll_10M p10M (clock_10M, clock_100k, lock_10);
+    wire clock_100k, clock_2M, lock_10;
+    pll_10M p10M (clock_10M, clock_100k, clock_2M, lock_10);
 
     // This module resets everything on power start.
     wire reset;
@@ -83,7 +84,7 @@ module Transceiver(
 
     //
     wire clipping;
-    clip_led cl (clock_100k, adc_overrange | dac_of, clipping);	
+    clip_led cl (clock_100k, adc_overrange | dac_of, clipping);
     assign led1 = clipping ;
     assign OF = clipping;
 
@@ -104,11 +105,11 @@ module Transceiver(
     Transmitter tx (dac_clock, reset, dac_data, tx_freq, tx_real, tx_imag, CW, clock_100k, dac_of);
 
     // I2S module
-    i2s i2s_slave (reset, BCLK, LRCLK, DIN, DOUT, rx_real, rx_imag, tx_real, tx_imag);
+    i2s i2s_slave (reset, SAICLK, BCLK, LRCLK, DIN, DOUT, rx_real, rx_imag, tx_real, tx_imag);
 
     // Power level
     reg [7:0] pwm_cnt;
-    always @(posedge clock_16M)
+    always @(posedge SAICLK)
     begin
         if (pwm_cnt >= tx_level) level_pwm <= 0;
         else level_pwm <= 1;

@@ -9,7 +9,6 @@ Transceiver/Transceiver.map.rpt
 Transceiver/Transceiver.map.smsg
 Transceiver/Transceiver.map.summary
 Transceiver/Transceiver.pin
-Transceiver/Transceiver.pof
 Transceiver/Transceiver.pow.rpt
 Transceiver/Transceiver.pow.summary
 Transceiver/Transceiver.qws
@@ -20,3 +19,4 @@ Transceiver/Transceiver.sta.summary
 Transceiver/incremental_db/
 Transceiver/build/
 Transceiver/db/
+Transceiver/greybox_tmp/

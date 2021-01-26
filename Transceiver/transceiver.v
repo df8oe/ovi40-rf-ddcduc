@@ -105,7 +105,7 @@ module Transceiver(
     Transmitter tx (dac_clock, reset, dac_data, tx_freq, tx_real, tx_imag, CW, clock_100k, dac_of);
 
     // I2S module
-    i2s i2s_slave (reset, SAICLK, BCLK, LRCLK, DIN, DOUT, rx_real, rx_imag, tx_real, tx_imag);
+    i2s i2s_master (reset, s_rate,  SAICLK, BCLK, LRCLK, DIN, DOUT, rx_real, rx_imag, tx_real, tx_imag);
 
     // Power level
     reg [7:0] pwm_cnt;

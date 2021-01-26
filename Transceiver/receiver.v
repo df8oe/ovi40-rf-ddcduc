@@ -23,12 +23,11 @@ begin
     case (rx_rate)
     0: rate <= 8'd40;  // 48 k
     1: rate <= 8'd20;  // 96 k
-    2: rate <= 8'd10;  // 192 k
-    3: rate <= 8'd8 ;  // 240 k
-    4: rate <= 8'd5 ;  // 384 k
-    5: rate <= 8'd4 ;  // 480 k
-    6: rate <= 8'd3 ;  // 640 k
-    7: rate <= 8'd2 ;  // 960 k
+//    2: rate <= 8'd10;  // 192 k
+//    3: rate <= 8'd5 ;  // 384 k
+//    4: rate <= 8'd4 ;  // 768 k
+//    5: rate <= 8'd3 ;  // 1536 k
+//    6: rate <= 8'd3 ;  // 3072 k
     default: rate <= 8'd40;
     endcase
 end

@@ -8,6 +8,7 @@
 
 module i2s (
    input _reset,
+   input s_rate,
    input SAICLK,
    output reg BCLK,
    output reg LRCLK,
@@ -21,10 +22,31 @@ module i2s (
 
 // generation of BCLK from SAICLK
 reg div2_clks;
+reg div4_clks;
+reg div8_clks;
+reg div16_clks;
+reg div32_clks;
+reg div64_clks;
 
 always @(posedge SAICLK) begin div2_clks <= ~div2_clks; end
-always @(posedge div2_clks) begin BCLK <= ~BCLK; end
+always @(posedge div2_clks) begin div4_clks <= ~div4_clks; end
+always @(posedge div4_clks) begin div8_clks <= ~div8_clks; end
+always @(posedge div8_clks) begin div16_clks <= ~div16_clks; end
+always @(posedge div16_clks) begin div32_clks <= ~div32_clks; end
+always @(posedge div32_clks) begin div64_clks <= ~div64_clks; end
 
+always @(posedge SAICLK)
+begin
+    case (s_rate)
+    0: BCLK <= div4_clks;  // 48k
+    1: BCLK <= div2_clks;  // 96k
+//    2: BCLK <= div2_clks;  // 192k
+//    3: BCLK <= div2_clks;  // 384k
+//    4: BCLK <= div2_clks;  // 768k
+//    5: BCLK <= div2_clks;  // 1536k
+//    6: BCLK <= div2_clks;  // 3072k
+    endcase
+end
 
 // generation of LRCLK from BCLK
 reg div2_clk;

@@ -8,7 +8,6 @@
 
 module i2s (
    input _reset,
-//   input BCLK,
    input SAICLK,
    output reg BCLK,
    output reg LRCLK,

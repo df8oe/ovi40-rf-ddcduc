@@ -103,20 +103,20 @@ module pll_rx (
 				.vcounderrange ());
 	defparam
 		altpll_component.bandwidth_type = "AUTO",
-		altpll_component.clk0_divide_by = 1,
+		altpll_component.clk0_divide_by = 2,
 		altpll_component.clk0_duty_cycle = 50,
 		altpll_component.clk0_multiply_by = 1,
 		altpll_component.clk0_phase_shift = "3255",
 		altpll_component.clk1_divide_by = 25,
 		altpll_component.clk1_duty_cycle = 50,
-		altpll_component.clk1_multiply_by = 4,
+		altpll_component.clk1_multiply_by = 2,
 		altpll_component.clk1_phase_shift = "7000",
 		altpll_component.clk2_divide_by = 25,
 		altpll_component.clk2_duty_cycle = 50,
-		altpll_component.clk2_multiply_by = 16,
-		altpll_component.clk2_phase_shift = "396",
+		altpll_component.clk2_multiply_by = 8,
+		altpll_component.clk2_phase_shift = "7000",
 		altpll_component.compensate_clock = "CLK0",
-		altpll_component.inclk0_input_frequency = 13020,
+		altpll_component.inclk0_input_frequency = 6510,
 		altpll_component.intended_device_family = "Cyclone 10 LP",
 		altpll_component.lpm_hint = "CBX_MODULE_PREFIX=pll_rx",
 		altpll_component.lpm_type = "altpll",
@@ -188,7 +188,7 @@ endmodule
 // Retrieval info: PRIVATE: CUR_DEDICATED_CLK STRING "c0"
 // Retrieval info: PRIVATE: CUR_FBIN_CLK STRING "c0"
 // Retrieval info: PRIVATE: DEVICE_SPEED_GRADE STRING "Any"
-// Retrieval info: PRIVATE: DIV_FACTOR0 NUMERIC "1"
+// Retrieval info: PRIVATE: DIV_FACTOR0 NUMERIC "2"
 // Retrieval info: PRIVATE: DIV_FACTOR1 NUMERIC "25"
 // Retrieval info: PRIVATE: DIV_FACTOR2 NUMERIC "25"
 // Retrieval info: PRIVATE: DUTY_CYCLE0 STRING "50.00000000"
@@ -204,7 +204,7 @@ endmodule
 // Retrieval info: PRIVATE: GLOCKED_MODE_CHECK STRING "0"
 // Retrieval info: PRIVATE: GLOCK_COUNTER_EDIT NUMERIC "1048575"
 // Retrieval info: PRIVATE: HAS_MANUAL_SWITCHOVER STRING "1"
-// Retrieval info: PRIVATE: INCLK0_FREQ_EDIT STRING "76.800"
+// Retrieval info: PRIVATE: INCLK0_FREQ_EDIT STRING "153.600"
 // Retrieval info: PRIVATE: INCLK0_FREQ_UNIT_COMBO STRING "MHz"
 // Retrieval info: PRIVATE: INCLK1_FREQ_EDIT STRING "100.000"
 // Retrieval info: PRIVATE: INCLK1_FREQ_EDIT_CHANGED STRING "1"
@@ -224,15 +224,15 @@ endmodule
 // Retrieval info: PRIVATE: MIRROR_CLK1 STRING "0"
 // Retrieval info: PRIVATE: MIRROR_CLK2 STRING "0"
 // Retrieval info: PRIVATE: MULT_FACTOR0 NUMERIC "1"
-// Retrieval info: PRIVATE: MULT_FACTOR1 NUMERIC "4"
-// Retrieval info: PRIVATE: MULT_FACTOR2 NUMERIC "5"
+// Retrieval info: PRIVATE: MULT_FACTOR1 NUMERIC "2"
+// Retrieval info: PRIVATE: MULT_FACTOR2 NUMERIC "8"
 // Retrieval info: PRIVATE: NORMAL_MODE_RADIO STRING "1"
 // Retrieval info: PRIVATE: OUTPUT_FREQ0 STRING "100.00000000"
 // Retrieval info: PRIVATE: OUTPUT_FREQ1 STRING "12.28800000"
 // Retrieval info: PRIVATE: OUTPUT_FREQ2 STRING "49.15200000"
 // Retrieval info: PRIVATE: OUTPUT_FREQ_MODE0 STRING "0"
 // Retrieval info: PRIVATE: OUTPUT_FREQ_MODE1 STRING "0"
-// Retrieval info: PRIVATE: OUTPUT_FREQ_MODE2 STRING "1"
+// Retrieval info: PRIVATE: OUTPUT_FREQ_MODE2 STRING "0"
 // Retrieval info: PRIVATE: OUTPUT_FREQ_UNIT0 STRING "MHz"
 // Retrieval info: PRIVATE: OUTPUT_FREQ_UNIT1 STRING "MHz"
 // Retrieval info: PRIVATE: OUTPUT_FREQ_UNIT2 STRING "MHz"
@@ -244,7 +244,7 @@ endmodule
 // Retrieval info: PRIVATE: PHASE_SHIFT_STEP_ENABLED_CHECK STRING "0"
 // Retrieval info: PRIVATE: PHASE_SHIFT_UNIT0 STRING "deg"
 // Retrieval info: PRIVATE: PHASE_SHIFT_UNIT1 STRING "ns"
-// Retrieval info: PRIVATE: PHASE_SHIFT_UNIT2 STRING "deg"
+// Retrieval info: PRIVATE: PHASE_SHIFT_UNIT2 STRING "ns"
 // Retrieval info: PRIVATE: PLL_ADVANCED_PARAM_CHECK STRING "0"
 // Retrieval info: PRIVATE: PLL_ARESET_CHECK STRING "0"
 // Retrieval info: PRIVATE: PLL_AUTOPLL_CHECK NUMERIC "1"
@@ -282,20 +282,20 @@ endmodule
 // Retrieval info: PRIVATE: ZERO_DELAY_RADIO STRING "0"
 // Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 // Retrieval info: CONSTANT: BANDWIDTH_TYPE STRING "AUTO"
-// Retrieval info: CONSTANT: CLK0_DIVIDE_BY NUMERIC "1"
+// Retrieval info: CONSTANT: CLK0_DIVIDE_BY NUMERIC "2"
 // Retrieval info: CONSTANT: CLK0_DUTY_CYCLE NUMERIC "50"
 // Retrieval info: CONSTANT: CLK0_MULTIPLY_BY NUMERIC "1"
 // Retrieval info: CONSTANT: CLK0_PHASE_SHIFT STRING "3255"
 // Retrieval info: CONSTANT: CLK1_DIVIDE_BY NUMERIC "25"
 // Retrieval info: CONSTANT: CLK1_DUTY_CYCLE NUMERIC "50"
-// Retrieval info: CONSTANT: CLK1_MULTIPLY_BY NUMERIC "4"
+// Retrieval info: CONSTANT: CLK1_MULTIPLY_BY NUMERIC "2"
 // Retrieval info: CONSTANT: CLK1_PHASE_SHIFT STRING "7000"
 // Retrieval info: CONSTANT: CLK2_DIVIDE_BY NUMERIC "25"
 // Retrieval info: CONSTANT: CLK2_DUTY_CYCLE NUMERIC "50"
-// Retrieval info: CONSTANT: CLK2_MULTIPLY_BY NUMERIC "16"
-// Retrieval info: CONSTANT: CLK2_PHASE_SHIFT STRING "396"
+// Retrieval info: CONSTANT: CLK2_MULTIPLY_BY NUMERIC "8"
+// Retrieval info: CONSTANT: CLK2_PHASE_SHIFT STRING "7000"
 // Retrieval info: CONSTANT: COMPENSATE_CLOCK STRING "CLK0"
-// Retrieval info: CONSTANT: INCLK0_INPUT_FREQUENCY NUMERIC "13020"
+// Retrieval info: CONSTANT: INCLK0_INPUT_FREQUENCY NUMERIC "6510"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone 10 LP"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "altpll"
 // Retrieval info: CONSTANT: OPERATION_MODE STRING "NORMAL"

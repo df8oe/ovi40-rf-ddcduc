@@ -55,6 +55,7 @@ reg div8_clk;
 reg div16_clk;
 reg div32_clk;
 
+// fixme: negedge is correct for I2Scompatibility but does not work with 153.6MHz clock - why?
 always @(posedge BCLK) begin div2_clk <= ~div2_clk; end
 always @(posedge div2_clk) begin div4_clk <= ~div4_clk; end
 always @(posedge div4_clk) begin div8_clk <= ~div8_clk; end
@@ -111,10 +112,10 @@ always @(posedge clock)
     0:
         begin
             sync <= 0;
-            if(!WS) state <= 1;
+            if(WS) state <= 1;
         end
     1:
-        if(WS)
+        if(!WS)
             begin
                 sync <= 1;
                 state <= 2;
@@ -151,28 +152,38 @@ module trm_i2s (
     input clock,
     output reg DOUT,
     input sync,
-    input [23:0] data_right,
-    input [23:0] data_left
+    input [23:0] data_left,
+    input [23:0] data_right
     );
 
 reg [5:0] bit_cnt;
 reg [63:0] buffer;
+reg [7:0] byte_cnt;
 
 always @(negedge clock)
     if(!sync)
-        bit_cnt <= 1'd0;
+        begin
+            bit_cnt <= 1'd0;
+            byte_cnt <= 1'd0;
+        end
     else
         begin
             DOUT <= buffer[63-bit_cnt];
             if(bit_cnt==63)
+                begin
                 bit_cnt <= 1'd0;
+                byte_cnt <= byte_cnt + 1'd1;
+                end
             else
                 bit_cnt <= bit_cnt + 1'd1;
         end
 
 always @(posedge clock)
-   if(bit_cnt==0)
-       buffer <= {data_right, 8'd0, data_left, 8'd0};
-//       buffer <= {24'h123456, 8'd0, 24'habcdef, 8'd0};
+    if(bit_cnt==0)
+        begin
+            buffer <= {data_left, 8'd0, data_right, 8'd0};
+// buffer <= {data_left, byte_cnt, data_right, byte_cnt};
+// buffer <= {24'h123456, byte_cnt, 24'habcdef, byte_cnt};
+        end
 
 endmodule

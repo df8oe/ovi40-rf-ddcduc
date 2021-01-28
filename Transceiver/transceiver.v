@@ -109,10 +109,13 @@ module Transceiver(
 
     // Power level
     reg [7:0] pwm_cnt;
+
     always @(posedge SAICLK)
     begin
-        if (pwm_cnt >= tx_level) level_pwm <= 0;
-        else level_pwm <= 1;
+        if (pwm_cnt >= tx_level)
+            level_pwm <= 0;
+        else
+            level_pwm <= 1;
         pwm_cnt <= pwm_cnt + 1'd1;
     end
 

@@ -55,13 +55,12 @@ reg div8_clk;
 reg div16_clk;
 reg div32_clk;
 
-// fixme: negedge is correct for I2Scompatibility but does not work with 153.6MHz clock - why?
-always @(posedge BCLK) begin div2_clk <= ~div2_clk; end
-always @(posedge div2_clk) begin div4_clk <= ~div4_clk; end
-always @(posedge div4_clk) begin div8_clk <= ~div8_clk; end
-always @(posedge div8_clk) begin div16_clk <= ~div16_clk; end
-always @(posedge div16_clk) begin div32_clk <= ~div32_clk; end
-always @(posedge div32_clk) begin LRCLK <= ~LRCLK; end
+always @(negedge BCLK) begin div2_clk <= ~div2_clk; end
+always @(negedge div2_clk) begin div4_clk <= ~div4_clk; end
+always @(negedge div4_clk) begin div8_clk <= ~div8_clk; end
+always @(negedge div8_clk) begin div16_clk <= ~div16_clk; end
+always @(negedge div16_clk) begin div32_clk <= ~div32_clk; end
+always @(negedge div32_clk) begin LRCLK <= ~LRCLK; end
 
 wire [23:0] rx_real;
 cdc_sync #(24)
@@ -171,19 +170,14 @@ always @(negedge clock)
             DOUT <= buffer[63-bit_cnt];
             if(bit_cnt==63)
                 begin
+                buffer <= {data_left, 8'd0, data_right, 8'd0};
+// buffer <= {data_left, byte_cnt, data_right, byte_cnt};
+// buffer <= {24'h123456, byte_cnt, 24'habcdef, byte_cnt};
                 bit_cnt <= 1'd0;
                 byte_cnt <= byte_cnt + 1'd1;
                 end
             else
                 bit_cnt <= bit_cnt + 1'd1;
-        end
-
-always @(posedge clock)
-    if(bit_cnt==0)
-        begin
-            buffer <= {data_left, 8'd0, data_right, 8'd0};
-// buffer <= {data_left, byte_cnt, data_right, byte_cnt};
-// buffer <= {24'h123456, byte_cnt, 24'habcdef, byte_cnt};
         end
 
 endmodule

@@ -11,8 +11,8 @@ input [7:0] rx_rate
 );
 
 // RX phase count
-localparam M2 = 32'd1876499845;  // B57 = 2^57.   M2 = B57/76800000
-//localparam M2 = 32'd938249922;  // B57 = 2^57.   M2 = B57/153600000
+// localparam M2 = 32'd1876499845;  // B57 = 2^57.   M2 = B57/76800000
+localparam M2 = 32'd938249922;  // B57 = 2^57.   M2 = B57/153600000
 localparam M3 = 32'd16777216;   // M3 = 2^24, used to round the result
 wire [63:0] ratio = rx_freq * M2 + M3;
 wire [31:0] rx_tune_phase = ratio[56:25];
@@ -93,6 +93,10 @@ wire signed [23:0]decim_real, decim_imag;
 wire decim_avail;
 firX8R8 fir2 (clock, decimB_avail, decimB_real, decimB_imag, decim_avail, decim_imag, decim_real);
 //
-always @(posedge decim_avail) begin rx_real <= decim_real; rx_imag <= decim_imag; end
+always @(negedge decim_avail)
+    begin
+        rx_real <= decim_real;
+        rx_imag <= decim_imag;
+    end
 
 endmodule

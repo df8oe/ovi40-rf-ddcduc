@@ -128,7 +128,7 @@ endmodule
 module varcic2 (clock, in_strobe,  out_strobe, in_data, out_data );
 
   //design parameters
-  parameter [6:0] decimation = 5;
+  parameter [6:0] decimation = 10;
   parameter STAGES = 5; //  Sections of both Comb and Integrate
   parameter [5:0] IN_WIDTH = 18;
   parameter OUT_WIDTH = 18;

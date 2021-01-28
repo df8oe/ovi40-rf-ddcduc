@@ -97,7 +97,7 @@ module Transceiver(
 
     // Receiver
     wire [23:0] rx_real, rx_imag;
-    Receiver rx (rx_clock, reg_adc_data, rx_freq, rx_real, rx_imag, s_rate);
+    Receiver rx (clock_153, reg_adc_data, rx_freq, rx_real, rx_imag, s_rate);
 
     // Transmitter
     wire [15:0] tx_real, tx_imag;

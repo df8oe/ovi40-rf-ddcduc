@@ -52,7 +52,7 @@ module Transceiver(
     assign test4 = clock_100k;
 
 
-    assign dac_clock = rx_clock;
+    assign dac_clock = clock_153;
     assign _10M_out = _10M_in;
     assign MCLK = ~SAICLK & lock_rx;
     assign nRES = reset;
@@ -60,8 +60,8 @@ module Transceiver(
     assign dummy_2 = 0;
 
     // PLL 1
-    wire rx_clock, SAICLK, TUCLK, lock_rx;
-    pll_rx prx (adc_clock, rx_clock, SAICLK, TUCLK, lock_rx);
+    wire rx_clock, SAICLK, TUCLK, clock_153, lock_rx;
+    pll_rx prx (adc_clock, rx_clock, SAICLK, TUCLK, clock_153, lock_rx);
 
     // PLL 2
     wire clock_100k, clock_2M, lock_10;

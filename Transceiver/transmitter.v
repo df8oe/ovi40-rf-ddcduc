@@ -37,8 +37,8 @@ reg signed [15:0] tx_reg_real, tx_reg_imag;
 always @(posedge req1) begin tx_reg_real <= tx_real; tx_reg_imag <= tx_imag;  end
 
 // TX phase count
-localparam M2 = 32'd1876499845;  // B57 = 2^57.   M2 = B57/76800000
-// localparam M2 = 32'd938249922;  // B57 = 2^57.   M2 = B57/153600000
+// localparam M2 = 32'd1876499845;  // B57 = 2^57.   M2 = B57/76800000
+localparam M2 = 32'd938249922;  // B57 = 2^57.   M2 = B57/153600000
 localparam M3 = 32'd16777216;    // M3 = 2^24, used to round the result
 wire [63:0] ratio = tx_freq * M2 + M3;
 wire [31:0] tx_tune_phase = ratio[56:25];
@@ -48,7 +48,7 @@ wire req1, req2;
 wire signed [19:0] y1_r, y1_i, y2_r, y2_i;
 FirInterp8 tx_fir (clock, req2, req1, tx_reg_real, tx_reg_imag, y1_r, y1_i);
 
-CicInterpM5 #(.RRRR(320), .IBITS(20), .OBITS(20), .GBITS(34))
+CicInterpM5 #(.RRRR(320), .IBITS(20), .OBITS(20), .GBITS(34)) // fixme: Interpolation 76.8MHz:400, 122.88MHz:320, 153.6MHz:400
             tx_int (clock, 1'd1, req2, y1_r, y1_i, y2_r, y2_i);
 
 //CW profile memory

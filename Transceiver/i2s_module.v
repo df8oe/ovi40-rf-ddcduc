@@ -40,7 +40,7 @@ begin
     case (s_rate)
     0: BCLK <= div4_clks;  // 48k
     1: BCLK <= div2_clks;  // 96k
-//    2: BCLK <= div2_clks;  // 192k
+    2: BCLK <= SAICLK;     // 192k
 //    3: BCLK <= div2_clks;  // 384k
 //    4: BCLK <= div2_clks;  // 768k
 //    5: BCLK <= div2_clks;  // 1536k

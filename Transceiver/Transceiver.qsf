@@ -97,7 +97,7 @@ set_location_assignment PIN_T5 -to dac_data[4]
 set_location_assignment PIN_R5 -to dac_data[3]
 set_location_assignment PIN_T4 -to dac_data[2]
 set_location_assignment PIN_R4 -to dac_data[1]
-set_location_assignment PIN_T3 -to dac_data[0]
+set_location_assignment PIN_R3 -to dac_data[0]
 set_location_assignment PIN_R16 -to led1
 set_location_assignment PIN_T15 -to led2
 set_location_assignment PIN_D3 -to test1

@@ -8,7 +8,7 @@
 
 module i2s (
    input _reset,
-   input s_rate,
+   input [0:2] s_rate,
    input SAICLK,
    output reg BCLK,
    output reg LRCLK,
@@ -17,7 +17,8 @@ module i2s (
    input [23:0] _rx_real,
    input [23:0] _rx_imag,
    output [15:0] tx_real,
-   output [15:0] tx_imag
+   output [15:0] tx_imag,
+   output i2s_ok
 );
 
 // generation of BCLK from SAICLK
@@ -75,7 +76,7 @@ cdc_sync #(1)
     rst_i (.siga(_reset), .rstb(1'b0), .clkb(BCLK), .sigb(reset));
 
 wire sync;
-rcv_i2s rcv_i2s (BCLK, reset, LRCLK, DIN, sync, tx_real, tx_imag);
+rcv_i2s rcv_i2s (BCLK, reset, LRCLK, DIN, sync, tx_real, tx_imag, i2s_ok);
 
 trm_i2s trm_i2s (BCLK, DOUT, sync, rx_real, rx_imag);
 
@@ -91,7 +92,8 @@ module rcv_i2s (
     input DIN,
     output reg sync,
     output reg [15:0] data_right,
-    output reg [15:0] data_left
+    output reg [15:0] data_left,
+    output reg i2s_ok
     );
 
 
@@ -99,6 +101,11 @@ module rcv_i2s (
 reg [2:0] state;
 reg [5:0] bit_cnt;
 reg [63:0] buffer;
+
+`ifndef DEBUG_I2S
+always 
+    i2s_ok <= 1'dz;
+`endif
 
 always @(posedge clock)
    if(!reset)
@@ -126,9 +133,9 @@ always @(posedge clock)
                 bit_cnt <= 1'd0;
             else
                 bit_cnt <= bit_cnt + 1'd1;
-            if(bit_cnt==63 & !WS)
+            if(bit_cnt==63 & WS)
                 state <= 0; // Auto syncronisation
-            if(bit_cnt==31 &  WS)
+            if(bit_cnt==31 & !WS)
                 state <= 0; // Auto syncronisation
         end
     default:
@@ -138,8 +145,11 @@ always @(posedge clock)
 always @(negedge clock)
     if(bit_cnt==0)
         begin
-            data_right <= buffer[63:48];
-            data_left <= buffer[31:16];
+            data_left <= buffer[63:48];
+            data_right <= buffer[31:16];
+`ifdef DEBUG_I2S
+            i2s_ok <= (buffer[63:40] == 24'h654321 && buffer[31:8] == 24'hfedcba && buffer[7:0] == buffer[7:0]);
+`endif
         end
 
 endmodule
@@ -157,24 +167,34 @@ module trm_i2s (
 
 reg [5:0] bit_cnt;
 reg [63:0] buffer;
+
+`ifdef DEBUG_I2S
 reg [7:0] byte_cnt;
+`endif
 
 always @(negedge clock)
     if(!sync)
         begin
             bit_cnt <= 1'd0;
+`ifdef DEBUG_I2S
             byte_cnt <= 1'd0;
+`endif
         end
     else
         begin
             DOUT <= buffer[63-bit_cnt];
             if(bit_cnt==63)
                 begin
+`ifndef DEBUG_I2S
                 buffer <= {data_left, 8'd0, data_right, 8'd0};
 // buffer <= {data_left, byte_cnt, data_right, byte_cnt};
-// buffer <= {24'h123456, byte_cnt, 24'habcdef, byte_cnt};
+`else
+				buffer <= {24'h123456, byte_cnt, 24'habcdef, byte_cnt};
+`endif
                 bit_cnt <= 1'd0;
+`ifdef DEBUG_I2S
                 byte_cnt <= byte_cnt + 1'd1;
+`endif
                 end
             else
                 bit_cnt <= bit_cnt + 1'd1;

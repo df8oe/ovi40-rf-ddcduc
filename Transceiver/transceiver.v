@@ -1,5 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////////
-
+// to enable I2S test pattern generator and pattern detector, uncomment next line
+// `define DEBUG_I2S
 module Transceiver(
     // ADC interface
     input [13:0] adc_data,
@@ -85,7 +86,13 @@ module Transceiver(
     //
     wire clipping;
     clip_led cl (clock_100k, adc_overrange | dac_of, clipping);
+	 
+    wire i2s_ok;
+`ifdef DEBUG_I2S	 
+    assign led1 = i2s_ok;
+`else	 
     assign led1 = clipping ;
+`endif	 
     assign OF = clipping;
 
     // read and register ADC data
@@ -105,7 +112,7 @@ module Transceiver(
     Transmitter tx (dac_clock, reset, dac_data, tx_freq, tx_real, tx_imag, CW, clock_100k, dac_of);
 
     // I2S module
-    i2s i2s_master (reset, s_rate,  SAICLK, BCLK, LRCLK, DIN, DOUT, rx_real, rx_imag, tx_real, tx_imag);
+    i2s i2s_master (reset, s_rate,  SAICLK, BCLK, LRCLK, DIN, DOUT, rx_real, rx_imag, tx_real, tx_imag, i2s_ok);
 
     // Power level
     reg [7:0] pwm_cnt;

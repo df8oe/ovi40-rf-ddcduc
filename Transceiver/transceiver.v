@@ -47,18 +47,18 @@ module Transceiver(
 
     );
 
-    assign test1 = main_clock;
-    assign test2 = SAICLK;
-    assign test3 = BCLK;
-    assign test4 = clock_100k;
+//    assign test1 = main_clock;
+//    assign test2 = SAICLK;
+//    assign test3 = BCLK;
+//    assign test4 = clock_100k;
 
 
     assign dac_clock = main_clock;
     assign _10M_out = _10M_in;
     assign MCLK = ~SAICLK & lock_rx;
     assign nRES = reset;
-    assign dummy_1 = 0;
-    assign dummy_2 = 0;
+//    assign dummy_1 = 0;
+//    assign dummy_2 = 0;
 
     // PLL 1
     wire main_clock, SAICLK, lock_rx;

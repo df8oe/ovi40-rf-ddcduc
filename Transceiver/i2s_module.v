@@ -8,7 +8,7 @@
 
 module i2s (
    input _reset,
-   input [0:2] s_rate,
+   input [2:0] s_rate,
    input SAICLK,
    output reg BCLK,
    output reg LRCLK,

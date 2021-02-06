@@ -36,8 +36,7 @@ always @(posedge div8_clks) begin div16_clks <= ~div16_clks; end
 always @(posedge div16_clks) begin div32_clks <= ~div32_clks; end
 always @(posedge div32_clks) begin div64_clks <= ~div64_clks; end
 
-always @(posedge SAICLK)
-begin
+always begin
     case (s_rate)
     0: BCLK <= div4_clks;  // 48k
     1: BCLK <= div2_clks;  // 96k

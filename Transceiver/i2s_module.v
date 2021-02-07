@@ -3,64 +3,38 @@
 // David Fainitski, N7DDC
 // for DDC Module 2 project
 // Seattle, 2020
-// modified by DF8OE
+// modified by DF8OE, DB4PLE
 //***************************
+
+
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
 
 module i2s (
    input _reset,
-   input [2:0] s_rate,
-   input SAICLK,
-   output reg BCLK,
-   output reg LRCLK,
+   input BCLK,
+   input LRCLK,
    input DIN,
    output DOUT,
    input [23:0] _rx_real,
    input [23:0] _rx_imag,
    output [15:0] tx_real,
    output [15:0] tx_imag,
-   output i2s_ok
+   output i2s_ok // test signal received passes pattern check, only active if DEBUG_I2S is defined
 );
 
-// generation of BCLK from SAICLK
-reg div2_clks;
-reg div4_clks;
-reg div8_clks;
-reg div16_clks;
-reg div32_clks;
-reg div64_clks;
-
-always @(posedge SAICLK) begin div2_clks <= ~div2_clks; end
-always @(posedge div2_clks) begin div4_clks <= ~div4_clks; end
-always @(posedge div4_clks) begin div8_clks <= ~div8_clks; end
-always @(posedge div8_clks) begin div16_clks <= ~div16_clks; end
-always @(posedge div16_clks) begin div32_clks <= ~div32_clks; end
-always @(posedge div32_clks) begin div64_clks <= ~div64_clks; end
-
-always begin
-    case (s_rate)
-    0: BCLK <= div4_clks;  // 48k
-    1: BCLK <= div2_clks;  // 96k
-    2: BCLK <= SAICLK;     // 192k
-//    3: BCLK <= div2_clks;  // 384k
-//    4: BCLK <= div2_clks;  // 768k
-//    5: BCLK <= div2_clks;  // 1536k
-//    6: BCLK <= div2_clks;  // 3072k
-    endcase
-end
-
-// generation of LRCLK from BCLK
-reg div2_clk;
-reg div4_clk;
-reg div8_clk;
-reg div16_clk;
-reg div32_clk;
-
-always @(negedge BCLK) begin div2_clk <= ~div2_clk; end
-always @(negedge div2_clk) begin div4_clk <= ~div4_clk; end
-always @(negedge div4_clk) begin div8_clk <= ~div8_clk; end
-always @(negedge div8_clk) begin div16_clk <= ~div16_clk; end
-always @(negedge div16_clk) begin div32_clk <= ~div32_clk; end
-always @(negedge div32_clk) begin LRCLK <= ~LRCLK; end
 
 wire [23:0] rx_real;
 cdc_sync #(24)
@@ -92,7 +66,7 @@ module rcv_i2s (
     output reg sync,
     output reg [15:0] data_right,
     output reg [15:0] data_left,
-    output reg i2s_ok
+    output i2s_ok
     );
 
 
@@ -102,21 +76,20 @@ reg [5:0] bit_cnt;
 reg [63:0] buffer;
 
 `ifndef DEBUG_I2S
-always 
-    i2s_ok <= 1'dz;
+assign  i2s_ok = 1'dz;
 `endif
 
 always @(posedge clock)
    if(!reset)
         begin
             state <= 0;
-            bit_cnt <= 0;
             sync <= 0;
         end
     else case(state)
     0:
         begin
             sync <= 0;
+				bit_cnt <= 0;
             if(WS) state <= 1;
         end
     1:

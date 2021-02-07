@@ -20,6 +20,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
+/**
+ * A clock by two divider which acts on negative clock and has a clocked ~reset
+ *
+ */
+ 
 module div2_negedge(
 	input reset,
 	input clk,
@@ -35,6 +41,11 @@ end
 	
 	
 endmodule
+
+/**
+ * A clock by two divider which acts on positive clock and has a clocked ~reset
+ *
+ */
 
 module div2_posedge(
 	input reset,
@@ -53,7 +64,13 @@ end
 endmodule
 
 
-module i2s_master_clocks(
+/**
+ * A runtime configurable I2S clock generator for bit clock and word select / left right clock. It needs the SAICLK to be twice the maximum bitclock
+ * s_rate provides the ability to switch the generated bitclock to be /8 /4 /2 of the input clock
+ * For now the word length is fixed to 32bits, i.e. 64 bits per frame
+ */
+ 
+ module i2s_master_clocks(
    input reset,
    input [1:0] s_rate,
    input SAICLK,
@@ -80,7 +97,6 @@ begin
 		   end
 		else
 			div_cnt <= div_cnt -1'd1;
-		 
 end
 
 always begin @(posedge SAICLK)
@@ -109,6 +125,12 @@ div2_negedge div64(.reset(reset), .clk(div32_clk), .div_clk(LRCLK));
 
 endmodule
 
+
+/**
+ * A simple testbench for I2S master operation
+ * The code tests both the clock generation as well as the I2S module. It reads its output and compares it with the expected result 
+ */
+ 
 `timescale 1 ns/1 ps
 
 module i2s_master_clocks_tb();
@@ -143,7 +165,7 @@ module i2s_master_clocks_tb();
 	initial
 	begin
 		reset = 1'd0;
-		s_rate = 1'd0;
+		s_rate = 2'd2;
 		din = 1'd1;
 		
 		rx_real = 24'h123456;
@@ -157,6 +179,7 @@ module i2s_master_clocks_tb();
 			$display("FAIL: Reading own transmission failed");
 		else
 			$display("PASS: Reading own transmission successful");
+		 $finish;	
 
 	end
 	

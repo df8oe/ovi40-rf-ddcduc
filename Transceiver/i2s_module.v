@@ -66,7 +66,11 @@ module rcv_i2s (
     output reg sync,
     output reg [15:0] data_right,
     output reg [15:0] data_left,
+`ifndef DEBUG_I2S	 
     output i2s_ok
+`else
+    output reg i2s_ok
+`endif	 
     );
 
 

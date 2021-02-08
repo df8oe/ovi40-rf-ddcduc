@@ -48,21 +48,21 @@ module pll_rx (
 	output	  c2;
 	output	  locked;
 
-	wire [4:0] sub_wire0;
-	wire  sub_wire3;
-	wire [0:0] sub_wire6 = 1'h0;
-	wire [2:2] sub_wire2 = sub_wire0[2:2];
-	wire [1:1] sub_wire1 = sub_wire0[1:1];
-	wire  c1 = sub_wire1;
-	wire  c2 = sub_wire2;
-	wire  locked = sub_wire3;
-	wire  sub_wire4 = inclk0;
-	wire [1:0] sub_wire5 = {sub_wire6, sub_wire4};
+	wire [0:0] sub_wire2 = 1'h0;
+	wire [4:0] sub_wire3;
+	wire  sub_wire6;
+	wire  sub_wire0 = inclk0;
+	wire [1:0] sub_wire1 = {sub_wire2, sub_wire0};
+	wire [2:2] sub_wire5 = sub_wire3[2:2];
+	wire [1:1] sub_wire4 = sub_wire3[1:1];
+	wire  c1 = sub_wire4;
+	wire  c2 = sub_wire5;
+	wire  locked = sub_wire6;
 
 	altpll	altpll_component (
-				.inclk (sub_wire5),
-				.clk (sub_wire0),
-				.locked (sub_wire3),
+				.inclk (sub_wire1),
+				.clk (sub_wire3),
+				.locked (sub_wire6),
 				.activeclock (),
 				.areset (1'b0),
 				.clkbad (),
@@ -101,7 +101,7 @@ module pll_rx (
 		altpll_component.bandwidth_type = "AUTO",
 		altpll_component.clk1_divide_by = 25,
 		altpll_component.clk1_duty_cycle = 50,
-		altpll_component.clk1_multiply_by = 2,
+		altpll_component.clk1_multiply_by = 4,
 		altpll_component.clk1_phase_shift = "0",
 		altpll_component.clk2_divide_by = 1,
 		altpll_component.clk2_duty_cycle = 50,
@@ -184,7 +184,7 @@ endmodule
 // Retrieval info: PRIVATE: DIV_FACTOR2 NUMERIC "1"
 // Retrieval info: PRIVATE: DUTY_CYCLE1 STRING "50.00000000"
 // Retrieval info: PRIVATE: DUTY_CYCLE2 STRING "50.00000000"
-// Retrieval info: PRIVATE: EFF_OUTPUT_FREQ_VALUE1 STRING "12.288000"
+// Retrieval info: PRIVATE: EFF_OUTPUT_FREQ_VALUE1 STRING "24.576000"
 // Retrieval info: PRIVATE: EFF_OUTPUT_FREQ_VALUE2 STRING "153.600006"
 // Retrieval info: PRIVATE: EXPLICIT_SWITCHOVER_COUNTER STRING "0"
 // Retrieval info: PRIVATE: EXT_FEEDBACK_RADIO STRING "0"
@@ -210,7 +210,7 @@ endmodule
 // Retrieval info: PRIVATE: MIG_DEVICE_SPEED_GRADE STRING "Any"
 // Retrieval info: PRIVATE: MIRROR_CLK1 STRING "0"
 // Retrieval info: PRIVATE: MIRROR_CLK2 STRING "0"
-// Retrieval info: PRIVATE: MULT_FACTOR1 NUMERIC "2"
+// Retrieval info: PRIVATE: MULT_FACTOR1 NUMERIC "4"
 // Retrieval info: PRIVATE: MULT_FACTOR2 NUMERIC "1"
 // Retrieval info: PRIVATE: NORMAL_MODE_RADIO STRING "1"
 // Retrieval info: PRIVATE: OUTPUT_FREQ1 STRING "12.28800000"
@@ -262,7 +262,7 @@ endmodule
 // Retrieval info: CONSTANT: BANDWIDTH_TYPE STRING "AUTO"
 // Retrieval info: CONSTANT: CLK1_DIVIDE_BY NUMERIC "25"
 // Retrieval info: CONSTANT: CLK1_DUTY_CYCLE NUMERIC "50"
-// Retrieval info: CONSTANT: CLK1_MULTIPLY_BY NUMERIC "2"
+// Retrieval info: CONSTANT: CLK1_MULTIPLY_BY NUMERIC "4"
 // Retrieval info: CONSTANT: CLK1_PHASE_SHIFT STRING "0"
 // Retrieval info: CONSTANT: CLK2_DIVIDE_BY NUMERIC "1"
 // Retrieval info: CONSTANT: CLK2_DUTY_CYCLE NUMERIC "50"

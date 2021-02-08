@@ -55,8 +55,13 @@ module Transceiver(
 
     assign dac_clock = main_clock;
     assign _10M_out = _10M_in;
-    assign MCLK = ~SAICLK & lock_rx;
+    assign MCLK = ~_mclk & lock_rx;
     assign nRES = reset;
+	 
+	 wire _mclk;
+	 
+	 div2_posedge(.reset(reset), .clk(SAICLK), .div_clk(_mclk));
+	 
 //    assign dummy_1 = 0;
 //    assign dummy_2 = 0;
 
@@ -111,8 +116,25 @@ module Transceiver(
     wire dac_of;
     Transmitter tx (dac_clock, reset, dac_data, tx_freq, tx_real, tx_imag, CW, clock_100k, dac_of);
 
-    // I2S module
-    i2s i2s_master (reset, s_rate,  SAICLK, BCLK, LRCLK, DIN, DOUT, rx_real, rx_imag, tx_real, tx_imag, i2s_ok);
+    // I2S modules
+	 i2s_master_clocks i2s_master_clocks(
+							.reset(reset),
+                     .s_rate(s_rate),
+							.SAICLK(SAICLK),
+							.BCLK(BCLK),
+							.LRCLK(LRCLK));
+	 
+    i2s i2s_master ( 
+	                  ._reset(reset), 
+                     .BCLK(BCLK), 
+							.LRCLK(LRCLK), 
+							.DIN(DIN), 
+							.DOUT(DOUT), 
+							._rx_real(rx_real), 
+							._rx_imag(rx_imag), 
+							.tx_real(tx_real), 
+							.tx_imag(tx_imag), 
+							.i2s_ok(i2s_ok));
 
     // Power level
     reg [7:0] pwm_cnt;

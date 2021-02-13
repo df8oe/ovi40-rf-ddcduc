@@ -3,7 +3,7 @@
 // `define DEBUG_I2S
 module Transceiver(
     // ADC1 interface
-    input [13:0] adc_data,
+    input [13:0] adc1_data,
     input adc1_clock,
     input adc1_overrange,
 
@@ -131,15 +131,15 @@ module Transceiver(
     assign OF = clipping;
 
     // read and register ADC data
-    reg [13:0] reg_adc_data;
+    reg [13:0] reg_adc1_data;
     always @(posedge adc1_clock)
     begin
-        reg_adc_data <=  adc_data[13:0];
+        reg_adc1_data <=  adc1_data[13:0];
     end
 
     // Receiver
     wire [23:0] rx_real, rx_imag;
-    Receiver rx (main_clock, reg_adc_data, rx_freq, rx_real, rx_imag, s_rate);
+    Receiver rx (main_clock, reg_adc1_data, rx_freq, rx_real, rx_imag, s_rate);
 
     // Transmitter
     wire [15:0] tx_real, tx_imag;

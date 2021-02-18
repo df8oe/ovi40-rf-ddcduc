@@ -47,27 +47,17 @@ module Transceiver(
 
     );
 
-//    assign test1 = main_clock;
-//    assign test2 = SAICLK;
-//    assign test3 = BCLK;
-//    assign test4 = clock_100k;
-
-
-    assign dac_clock = main_clock;
     assign _10M_out = _10M_in;
     assign MCLK = ~_mclk & lock_rx;
     assign nRES = reset;
-	 
-	 wire _mclk;
-	 
-	 div2_posedge(.reset(reset), .clk(SAICLK), .div_clk(_mclk));
-	 
-//    assign dummy_1 = 0;
-//    assign dummy_2 = 0;
+
+    wire _mclk;
+
+    div2_posedge(.reset(reset), .clk(SAICLK), .div_clk(_mclk));
 
     // PLL 1
     wire main_clock, SAICLK, lock_rx;
-    pll_rx prx (adc_clock, SAICLK, main_clock, lock_rx);
+    pll_rx prx (adc_clock, dac_clock, SAICLK, main_clock, lock_rx);
 
     // PLL 2
     wire clock_100k, clock_2M, lock_10;
@@ -91,13 +81,13 @@ module Transceiver(
     //
     wire clipping;
     clip_led cl (clock_100k, adc_overrange | dac_of, clipping);
-	 
+
     wire i2s_ok;
-`ifdef DEBUG_I2S	 
+`ifdef DEBUG_I2S
     assign led1 = i2s_ok;
-`else	 
+`else
     assign led1 = clipping ;
-`endif	 
+`endif
     assign OF = clipping;
 
     // read and register ADC data

@@ -1,0 +1,70 @@
+Quartus Prime Archive log --	C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/Transceiver_tmp_archive.qarlog
+
+Archive:	C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/Transceiver_tmp_archive.qar
+Date:		Sat Feb 20 14:52:13 2021
+Quartus Prime		20.1.1 Build 720 11/11/2020 SJ Lite Edition
+
+	=========== Files Selected: ===========
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/Polyphase_filter/firram36.qip
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/Polyphase_filter/firram36.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/Polyphase_filter/firromH.qip
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/Polyphase_filter/firromH.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/Transceiver.qpf
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/Transceiver.qsf
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/Transceiver.sdc
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/Transceiver_assignment_defaults.qdf
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/cdc_sync.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/cic_interp.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/cicfilt.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/clip_led.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/clkgen_init.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/control_i2c.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/cordic_rx.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/cordic_tx.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/firfilt.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/firinterp.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/firram36I.qip
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/firram36I.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/firromI.qip
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/firromI.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/i2c_rom.qip
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/i2c_rom.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/i2c_rom_153m6_e.mif
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/i2s_master_clocks.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/i2s_module.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/mult_16x16_uns.qip
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/mult_16x16_uns.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/mult_24Sx24S.qip
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/mult_24Sx24S.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/pll_10M.ppf
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/pll_10M.qip
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/pll_10M.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/pll_rx.ppf
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/pll_rx.qip
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/pll_rx.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/polyphase_filter/coefi8.mif
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/polyphase_filter/coefl8a.mif
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/polyphase_filter/coefl8b.mif
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/polyphase_filter/coefl8c.mif
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/polyphase_filter/coefl8d.mif
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/polyphase_filter/coefl8e.mif
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/polyphase_filter/coefl8f.mif
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/polyphase_filter/coefl8g.mif
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/polyphase_filter/coefl8h.mif
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/profile.mif
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/profile.qip
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/profile.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/receiver.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/reset.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/transceiver.v
+C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/transmitter.v
+	======= Total: 53 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.
+
+
+******* Archived project restoration attempt on Sat Feb 20 14:52:17 2021
+Source archive file:	C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Transceiver/Transceiver_tmp_archive.qar
+Archive was extracted into	C:/Users/danilo/git/ovi40-rf-ddcduc - i2s_debug/Boards/RFBoard1/
+		 - successfully.

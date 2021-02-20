@@ -1,0 +1,215 @@
+# Copyright (C) 1991-2008 Altera Corporation
+# Your use of Altera Corporation's design tools, logic functions
+# and other software and tools, and its AMPP partner logic
+# functions, and any output files from any of the foregoing
+# (including device programming or simulation files), and any
+# associated documentation or information are expressly subject
+# to the terms and conditions of the Altera Program License
+# Subscription Agreement, Altera MegaCore Function License
+# Agreement, or other applicable license agreement, including,
+# without limitation, that your use is for the sole purpose of
+# programming logic devices manufactured by Altera and sold by
+# Altera or its authorized distributors.  Please refer to the
+# applicable agreement for further details.
+
+
+# The default values for assignments are stored in the file
+#        RFBoard1_assignment_defaults.qdf
+# If this file doesn't exist, and for assignments not listed, see file
+#        assignment_defaults.qdf
+
+# Altera recommends that you do not modify this file. This
+# file is updated automatically by the Quartus II software
+# and any changes you make may be lost or overwritten.
+
+
+set_global_assignment -name FAMILY "Cyclone 10 LP"
+set_global_assignment -name DEVICE 10CL016ZU256I8G
+set_global_assignment -name TOP_LEVEL_ENTITY RFBoard1
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.1
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:00:26  FEBRUARY 20, 2021"
+set_global_assignment -name LAST_QUARTUS_VERSION "20.1.1 Lite Edition"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY build
+set_global_assignment -name USE_GENERATED_PHYSICAL_CONSTRAINTS OFF -section_id eda_blast_fpga
+set_global_assignment -name CYCLONEII_OPTIMIZATION_TECHNIQUE SPEED
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP "-40"
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 100
+set_global_assignment -name USE_CONFIGURATION_DEVICE ON
+set_global_assignment -name CYCLONEIII_CONFIGURATION_DEVICE EPCS4
+set_global_assignment -name FORCE_CONFIGURATION_VCCIO ON
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVCMOS"
+set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
+set_global_assignment -name ENABLE_DA_RULE "C101, C102, C103, C104, C105, C106, R101, R102, R103, R104, R105, T101, T102, A101, A102, A103, A104, A105, A106, A107, A108, A109, A110, S101, S102, S103, S104, D101, D102, D103, H101, H102"
+set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
+set_global_assignment -name ENABLE_CONFIGURATION_PINS OFF
+set_global_assignment -name ENABLE_BOOT_SEL_PIN OFF
+set_global_assignment -name CRC_ERROR_OPEN_DRAIN OFF
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "NO HEAT SINK WITH STILL AIR"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
+set_global_assignment -name SMART_RECOMPILE ON
+set_global_assignment -name FLOW_ENABLE_IO_ASSIGNMENT_ANALYSIS ON
+set_global_assignment -name FLOW_ENABLE_POWER_ANALYZER ON
+set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "12.5 %"
+set_global_assignment -name POWER_REPORT_SIGNAL_ACTIVITY ON
+set_global_assignment -name POWER_REPORT_POWER_DISSIPATION ON
+set_global_assignment -name ENABLE_OCT_DONE OFF
+set_global_assignment -name CONFIGURATION_VCCIO_LEVEL 3.3V
+set_location_assignment PIN_B16 -to adc_data[0]
+set_location_assignment PIN_C15 -to adc_data[1]
+set_location_assignment PIN_C16 -to adc_data[2]
+set_location_assignment PIN_D15 -to adc_data[3]
+set_location_assignment PIN_D16 -to adc_data[4]
+set_location_assignment PIN_F16 -to adc_data[5]
+set_location_assignment PIN_G16 -to adc_data[6]
+set_location_assignment PIN_G15 -to adc_data[7]
+set_location_assignment PIN_J15 -to adc_data[8]
+set_location_assignment PIN_J16 -to adc_data[9]
+set_location_assignment PIN_K15 -to adc_data[10]
+set_location_assignment PIN_K16 -to adc_data[11]
+set_location_assignment PIN_L16 -to adc_data[12]
+set_location_assignment PIN_N16 -to adc_data[13]
+set_location_assignment PIN_P16 -to adc_overrange
+set_location_assignment PIN_P1 -to level_pwm
+set_location_assignment PIN_T12 -to dac_data[13]
+set_location_assignment PIN_R12 -to dac_data[12]
+set_location_assignment PIN_T11 -to dac_data[11]
+set_location_assignment PIN_R11 -to dac_data[10]
+set_location_assignment PIN_T10 -to dac_data[9]
+set_location_assignment PIN_R10 -to dac_data[8]
+set_location_assignment PIN_R7 -to dac_data[7]
+set_location_assignment PIN_T6 -to dac_data[6]
+set_location_assignment PIN_R6 -to dac_data[5]
+set_location_assignment PIN_T5 -to dac_data[4]
+set_location_assignment PIN_R5 -to dac_data[3]
+set_location_assignment PIN_T4 -to dac_data[2]
+set_location_assignment PIN_R4 -to dac_data[1]
+set_location_assignment PIN_R3 -to dac_data[0]
+set_location_assignment PIN_R16 -to led1
+set_location_assignment PIN_T15 -to led2
+set_location_assignment PIN_D3 -to test1
+set_location_assignment PIN_D1 -to test2
+set_location_assignment PIN_C2 -to test3
+set_location_assignment PIN_B1 -to test4
+set_location_assignment PIN_B11 -to BCLK
+set_location_assignment PIN_A13 -to DIN
+set_location_assignment PIN_B10 -to DOUT
+set_location_assignment PIN_A11 -to LRCLK
+set_location_assignment PIN_A15 -to CW
+set_location_assignment PIN_A12 -to OF
+set_location_assignment PIN_M15 -to adc_clock
+set_location_assignment PIN_T7 -to dac_clock
+set_location_assignment PIN_R14 -to master_SCL
+set_location_assignment PIN_T14 -to master_SDA
+set_location_assignment PIN_B12 -to slave_SCL
+set_location_assignment PIN_B13 -to slave_SDA
+set_location_assignment PIN_E16 -to clock_10M
+set_location_assignment PIN_F15 -to _10M_out
+set_location_assignment PIN_T13 -to _10M_in
+set_location_assignment PIN_A14 -to MCLK
+set_location_assignment PIN_B14 -to nRES
+set_location_assignment PIN_N5 -to dummy_1
+set_location_assignment PIN_N6 -to dummy_2
+set_global_assignment -name DEVICE_FILTER_PACKAGE UFBGA
+set_global_assignment -name DEVICE_FILTER_PIN_COUNT 256
+set_global_assignment -name DEVICE_FILTER_SPEED_GRADE 8L
+set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
+set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST ON -section_id eda_simulation
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name LL_ROOT_REGION ON -section_id "Root Region"
+set_global_assignment -name LL_MEMBER_STATE LOCKED -section_id "Root Region"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_instance_assignment -name IO_STANDARD "1.8 V" -to led1
+set_instance_assignment -name IO_STANDARD "1.8 V" -to led2
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[0]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[10]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[11]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[12]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[13]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[1]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[2]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[3]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[4]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[5]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[6]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[7]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[8]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[9]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_overrange
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[0]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[10]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[11]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[12]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[13]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[1]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[2]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[3]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[4]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[5]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[6]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[7]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[8]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[9]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_clock
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_clock
+set_instance_assignment -name IO_STANDARD "1.8 V" -to master_SCL
+set_instance_assignment -name IO_STANDARD "1.8 V" -to master_SDA
+set_instance_assignment -name IO_STANDARD "1.8 V" -to clock_10M
+set_instance_assignment -name IO_STANDARD "1.8 V" -to _10M_out
+set_instance_assignment -name IO_STANDARD "1.8 V" -to _10M_in
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dummy_1
+set_instance_assignment -name IO_STANDARD "1.8 V" -to dummy_2
+set_global_assignment -name IP_SEARCH_PATHS ../../modules
+set_global_assignment -name SEARCH_PATH ../../modules/polyphase_filter
+set_global_assignment -name SEARCH_PATH ../../modules
+set_global_assignment -name VERILOG_FILE ../../modules/Polyphase_filter/firromH.v
+set_global_assignment -name QIP_FILE ../../modules/Polyphase_filter/firromH.qip
+set_global_assignment -name VERILOG_FILE ../../modules/Polyphase_filter/firram36.v
+set_global_assignment -name QIP_FILE ../../modules/Polyphase_filter/firram36.qip
+set_global_assignment -name VERILOG_FILE rfboard1.v
+set_global_assignment -name VERILOG_FILE ../../modules/VarCic.v
+set_global_assignment -name VERILOG_FILE ../../modules/transmitter.v
+set_global_assignment -name VERILOG_FILE ../../modules/transceiver.v
+set_global_assignment -name VERILOG_FILE ../../modules/reset.v
+set_global_assignment -name VERILOG_FILE ../../modules/receiver.v
+set_global_assignment -name VERILOG_FILE ../../modules/profile.v
+set_global_assignment -name QIP_FILE ../../modules/profile.qip
+set_global_assignment -name VERILOG_FILE ../../modules/pll_rx_153m6.v
+set_global_assignment -name QIP_FILE ../../modules/pll_rx_153m6.qip
+set_global_assignment -name VERILOG_FILE ../../modules/pll_10M.v
+set_global_assignment -name QIP_FILE ../../modules/pll_10M.qip
+set_global_assignment -name VERILOG_FILE ../../modules/mult_24Sx24S.v
+set_global_assignment -name QIP_FILE ../../modules/mult_24Sx24S.qip
+set_global_assignment -name VERILOG_FILE ../../modules/mult_16x16_uns.v
+set_global_assignment -name QIP_FILE ../../modules/mult_16x16_uns.qip
+set_global_assignment -name VERILOG_FILE ../../modules/i2s_module.v
+set_global_assignment -name VERILOG_FILE ../../modules/i2s_master_clocks.v
+set_global_assignment -name VERILOG_FILE ../../modules/i2c_rom_153m6.v
+set_global_assignment -name QIP_FILE ../../modules/i2c_rom_153m6.qip
+set_global_assignment -name VERILOG_FILE ../../modules/i2c_control.v
+set_global_assignment -name VERILOG_FILE ../../modules/firX8R8.v
+set_global_assignment -name VERILOG_FILE ../../modules/firram36I.v
+set_global_assignment -name QIP_FILE ../../modules/firram36I.qip
+set_global_assignment -name VERILOG_FILE ../../modules/FirInterp8RomI.v
+set_global_assignment -name QIP_FILE ../../modules/FirInterp8RomI.qip
+set_global_assignment -name VERILOG_FILE ../../modules/FirInterp8.v
+set_global_assignment -name VERILOG_FILE ../../modules/div2_posedge.v
+set_global_assignment -name VERILOG_FILE ../../modules/div2_negedge.v
+set_global_assignment -name VERILOG_FILE ../../modules/cordic_tx.v
+set_global_assignment -name VERILOG_FILE ../../modules/cordic_rx.v
+set_global_assignment -name VERILOG_FILE ../../modules/clkgen_init.v
+set_global_assignment -name VERILOG_FILE ../../modules/clip_led.v
+set_global_assignment -name VERILOG_FILE ../../modules/CicInterpM5.v
+set_global_assignment -name VERILOG_FILE ../../modules/CicDec10.v
+set_global_assignment -name VERILOG_FILE ../../modules/cdc_sync.v
+set_global_assignment -name CDF_FILE RFBoard1.cdf
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

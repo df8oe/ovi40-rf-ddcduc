@@ -29,7 +29,7 @@
 // third 2, 9, 17.. etc.  The coeficients are calculated as per normal but there is no need to 
 // compensate for the sinx/x shape of the preceeding CIC filters. This is because the filter 
 // decimates by 8 and the droop of the CIC at 1/8th its fs/2 is neglibible. 
-// The filter coefficients are in the file "coefL8.txt". This is split into 8 individual 
+// The filter coefficients are in the file "coefl8.txt". This is split into 8 individual 
 // Quartus ROM *.mif files.
 
 // The filter coefficients are also attenuated such that the result of the multiply and accumalate 
@@ -157,14 +157,14 @@ module firX8R8 (
     // at end of sequence indicate new data is available
     assign y_avail = (wstate == 8);
 
-    fir256 #("./Polyphase_filter/coefL8A.mif", ABITS, TAPS) A (clock, waddr, weA, x_real, x_imag, RaccA, IaccA);
-    fir256 #("./Polyphase_filter/coefL8B.mif", ABITS, TAPS) B (clock, waddr, weB, x_real, x_imag, RaccB, IaccB);
-    fir256 #("./Polyphase_filter/coefL8C.mif", ABITS, TAPS) C (clock, waddr, weC, x_real, x_imag, RaccC, IaccC);
-    fir256 #("./Polyphase_filter/coefL8D.mif", ABITS, TAPS) D (clock, waddr, weD, x_real, x_imag, RaccD, IaccD);
-    fir256 #("./Polyphase_filter/coefL8E.mif", ABITS, TAPS) E (clock, waddr, weE, x_real, x_imag, RaccE, IaccE);
-    fir256 #("./Polyphase_filter/coefL8F.mif", ABITS, TAPS) F (clock, waddr, weF, x_real, x_imag, RaccF, IaccF);
-    fir256 #("./Polyphase_filter/coefL8G.mif", ABITS, TAPS) G (clock, waddr, weG, x_real, x_imag, RaccG, IaccG);
-    fir256 #("./Polyphase_filter/coefL8H.mif", ABITS, TAPS) H (clock, waddr, weH, x_real, x_imag, RaccH, IaccH);
+    fir256 #("./Polyphase_filter/coefl8a.mif", ABITS, TAPS) A (clock, waddr, weA, x_real, x_imag, RaccA, IaccA);
+    fir256 #("./Polyphase_filter/coefl8b.mif", ABITS, TAPS) B (clock, waddr, weB, x_real, x_imag, RaccB, IaccB);
+    fir256 #("./Polyphase_filter/coefl8c.mif", ABITS, TAPS) C (clock, waddr, weC, x_real, x_imag, RaccC, IaccC);
+    fir256 #("./Polyphase_filter/coefl8d.mif", ABITS, TAPS) D (clock, waddr, weD, x_real, x_imag, RaccD, IaccD);
+    fir256 #("./Polyphase_filter/coefl8e.mif", ABITS, TAPS) E (clock, waddr, weE, x_real, x_imag, RaccE, IaccE);
+    fir256 #("./Polyphase_filter/coefl8f.mif", ABITS, TAPS) F (clock, waddr, weF, x_real, x_imag, RaccF, IaccF);
+    fir256 #("./Polyphase_filter/coefl8g.mif", ABITS, TAPS) G (clock, waddr, weG, x_real, x_imag, RaccG, IaccG);
+    fir256 #("./Polyphase_filter/coefl8h.mif", ABITS, TAPS) H (clock, waddr, weH, x_real, x_imag, RaccH, IaccH);
 
 endmodule
 

@@ -1,0 +1,5 @@
+I2C PLL 5P49V5923B000NLGI
+ADC AD9649-80 14-bit 80 MSPS
+DAC AD9606 12-bit 175 MSPS
+FPGA Cyclone 10 LP 10CL010ZU256I8G
+Based on DDC_Module_2, see https://github.com/Dfinitski/DDC_Module_2

@@ -22,7 +22,9 @@
 //////////////////////////////////////////////////////////////////////////////////
 // to enable I2S test pattern generator and pattern detector, uncomment next line
 // `define DEBUG_I2S
-module transceiver(
+module transceiver
+#(ADC_CLOCK_FREQ = 153600000)
+(
     // ADC interface
     input [13:0] adc_data,
     input adc_clock,
@@ -68,6 +70,10 @@ module transceiver(
 
     );
 
+	 
+	 localparam dac_clock_freq = ADC_CLOCK_FREQ;
+
+	 
     assign _10M_out = _10M_in;
     assign MCLK = ~_mclk & lock_rx;
     assign nRES = reset;
@@ -78,7 +84,14 @@ module transceiver(
 
     // PLL 1
     wire main_clock, SAICLK, lock_rx;
-    pll_rx_153m6 prx (adc_clock, dac_clock, SAICLK, main_clock, lock_rx);
+	 
+	 generate 
+	 if (ADC_CLOCK_FREQ == 76800000)
+        pll_rx_76m8 prx (adc_clock, dac_clock, SAICLK, main_clock, lock_rx);
+ 	 else    
+         pll_rx_153m6 prx (adc_clock, dac_clock, SAICLK, main_clock, lock_rx);
+    endgenerate
+
 
     // PLL 2
     wire clock_100k, clock_2M, lock_10;
@@ -90,13 +103,14 @@ module transceiver(
     assign led2 = reset;
 
     //
-    clkgen_init c_init(clock_100k, reset, master_SDA, master_SCL);
+    clkgen_init #(.CLOCK_FREQ(ADC_CLOCK_FREQ)) c_init(clock_100k, reset, master_SDA, master_SCL);
 
     //
     wire [31:0] rx_freq;
     wire [31:0] tx_freq;
     wire [7:0] s_rate;
     wire [7:0] tx_level;
+	 
     i2c_control i2c_slave (clock_2M, reset, slave_SDA, slave_SCL, rx_freq, tx_freq, s_rate, tx_level);
 
     //
@@ -120,12 +134,12 @@ module transceiver(
 
     // Receiver
     wire [23:0] rx_real, rx_imag;
-    Receiver rx (main_clock, reg_adc_data, rx_freq, rx_real, rx_imag, s_rate);
+    Receiver #(.CLOCK_FREQ(ADC_CLOCK_FREQ))  rx (main_clock, reg_adc_data, rx_freq, rx_real, rx_imag, s_rate);
 
     // Transmitter
     wire [15:0] tx_real, tx_imag;
     wire dac_of;
-    Transmitter tx (dac_clock, reset, dac_data, tx_freq, tx_real, tx_imag, CW, clock_100k, dac_of);
+    Transmitter #(.CLOCK_FREQ(dac_clock_freq)) tx (dac_clock, reset, dac_data, tx_freq, tx_real, tx_imag, CW, clock_100k, dac_of);
 
     // I2S modules
 	 i2s_master_clocks i2s_master_clocks(

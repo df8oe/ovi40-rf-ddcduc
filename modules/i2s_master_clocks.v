@@ -20,18 +20,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+// We assume 24.576  Mhz clock input here.
+
 /**
  * A runtime configurable I2S clock generator for bit clock and word select / left right clock. It needs the SAICLK to be twice the maximum bitclock
  * s_rate provides the ability to switch the generated bitclock to be /8 /4 /2 of the input clock
  * For now the word length is fixed to 32bits, i.e. 64 bits per frame
  */
  
- module i2s_master_clocks(
+ module i2s_master_clocks
+ #(parameter WORD=32)
+ (
    input reset,
    input [1:0] s_rate,
    input SAICLK,
    output reg BCLK,
-   output LRCLK
+   output reg LRCLK
 );
 
 // generation of BCLK from SAICLK
@@ -64,20 +68,26 @@ always begin @(posedge SAICLK)
     endcase
 end
 
-// generation of LRCLK from BCLK
-wire div2_clk;
-wire div4_clk;
-wire div8_clk;
-wire div16_clk;
-wire div32_clk;
-wire div64_clk;
 
-div2_negedge div2(.reset(reset), .clk(BCLK), .div_clk(div2_clk));
-div2_negedge div4(.reset(reset), .clk(div2_clk), .div_clk(div4_clk));
-div2_negedge div8(.reset(reset), .clk(div4_clk), .div_clk(div8_clk));
-div2_negedge div16(.reset(reset), .clk(div8_clk), .div_clk(div16_clk));
-div2_negedge div32(.reset(reset), .clk(div16_clk), .div_clk(div32_clk));
-div2_negedge div64(.reset(reset), .clk(div32_clk), .div_clk(LRCLK));
+reg [6:0] bit_cnt;
+
+// generation of LRCLK from BCLK
+always @(posedge BCLK or negedge reset) 
+begin
+	if (~reset)
+	begin
+		LRCLK <= 1'd0;
+		bit_cnt <= 1'd0;
+	end	
+	else
+		if (bit_cnt == 0)
+		   begin
+			  LRCLK <= ~LRCLK;
+			  bit_cnt <= (WORD)-1;
+		   end
+		else
+			bit_cnt <= bit_cnt -1'd1;
+end
 
 endmodule
 
@@ -91,6 +101,7 @@ endmodule
 
 module i2s_master_clocks_tb();
 
+	parameter WORD = 26;
 	reg saiclk;
 	reg [1:0] s_rate;
 	reg reset;
@@ -103,9 +114,9 @@ module i2s_master_clocks_tb();
 	wire i2s_ok;
 	wire DOUT;
 
-	i2s_master_clocks dut(.reset(reset), .s_rate(s_rate), .SAICLK(saiclk), .BCLK(bclk), .LRCLK(lrclk));
+	i2s_master_clocks #(.WORD(WORD)) dut(.reset(reset), .s_rate(s_rate), .SAICLK(saiclk), .BCLK(bclk), .LRCLK(lrclk));
 	
-	i2s dut_i2s_master ( 
+	i2s #(.WORD(WORD))dut_i2s_master ( 
 	                  ._reset(reset), 
                      .BCLK(bclk), 
 							.LRCLK(lrclk), 
@@ -130,7 +141,7 @@ module i2s_master_clocks_tb();
 		#20 reset = 1'd1;
 		
 
-		#4000;
+		#2000;
 		if (tx_real !== 16'habcd && tx_imag !== 16'h1234) 
 			$display("FAIL: Reading own transmission failed");
 		else

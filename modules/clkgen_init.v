@@ -1,6 +1,8 @@
 // I2C master
 
-module clkgen_init (
+module clkgen_init 
+#(parameter CLOCK_FREQ=153600000) 
+(
     input clock,
     input reset,
     inout reg SDA,
@@ -16,7 +18,14 @@ module clkgen_init (
     reg  [6:0] reg_addr;
     wire [7:0] reg_data;
     //
-    i2c_rom_153m6 reg_set(reg_addr, clock, reg_data);
+	 
+	 	 generate 
+	 if (CLOCK_FREQ == 76800000)
+        i2c_rom_76m8 reg_set(reg_addr, clock, reg_data);
+ 	 else    
+	     i2c_rom_153m6 reg_set(reg_addr, clock, reg_data);
+    endgenerate
+
     //
 
     initial

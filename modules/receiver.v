@@ -1,19 +1,25 @@
 //
 //
 
-module Receiver(
+module Receiver
+#(parameter CLOCK_FREQ=153600000) 
+(
 input clock,
 input [13:0] adc_data,
 input [31:0] rx_freq,
 output reg signed [23:0] rx_real,
 output reg signed [23:0] rx_imag,
-input [7:0] rx_rate
+input [1:0] rx_rate
 );
 
 // RX phase count
-// localparam M2 = 32'd1876499845;  // B57 = 2^57.   M2 = B57/76800000
-localparam M2 = 32'd938249922;  // B57 = 2^57.   M2 = B57/153600000
-localparam M3 = 32'd16777216;   // M3 = 2^24, used to round the result
+// RX phase count
+localparam chain_fixed_decim = 80; // what is the overall decimation rate of all filters with fixed decimation
+
+localparam [63:0] B58 = 1<<58; // 2^58 
+localparam [31:0] M2 = (((B58/CLOCK_FREQ)+1)>>1); // 2^57 / CLOCK_FREQ rounded 
+localparam [31:0] M3 = 1 << 24; //  M3 = 2^24, used to round the result
+ 
 wire [63:0] ratio = rx_freq * M2 + M3;
 wire [31:0] rx_tune_phase = ratio[56:25];
 
@@ -22,14 +28,10 @@ reg [7:0] rate;
 always @(rx_rate)
 begin
     case (rx_rate)
-    0: rate <= 8'd40;  // 48 k
-    1: rate <= 8'd20;  // 96 k
-    2: rate <= 8'd10;  // 192 k
-//    3: rate <= 8'd5 ;  // 384 k
-//    4: rate <= 8'd4 ;  // 768 k
-//    5: rate <= 8'd3 ;  // 1536 k
-//    6: rate <= 8'd3 ;  // 3072 k
-    default: rate <= 8'd40;
+    0: rate <= (CLOCK_FREQ/(chain_fixed_decim * 48000));  // 48 k
+    1: rate <= (CLOCK_FREQ/(chain_fixed_decim * 96000));  // 96 k
+    2: rate <= (CLOCK_FREQ/(chain_fixed_decim * 192000));  // 192 k
+    default: rate <= (CLOCK_FREQ/(chain_fixed_decim * 48000));  // 48 k
     endcase
 end
 
@@ -91,7 +93,7 @@ CicDec10 cic_inst_Q1(
 //
 wire signed [23:0]decim_real, decim_imag;
 wire decim_avail;
-firX8R8 fir2 (clock, decimB_avail, decimB_real, decimB_imag, decim_avail, decim_imag, decim_real);
+firX8R8 fir2 (clock, decimB_avail, decimB_real, decimB_imag, decim_avail, decim_real, decim_imag);
 //
 always @(negedge decim_avail)
     begin

@@ -22,7 +22,9 @@
 
 
 
-module i2s_module (
+module i2s_module
+#(parameter WORD=32)  // this parameter specifies the number of bits in a single transmitted I2S word (2 words -> one sample)
+(
    input _reset,
    input BCLK,
    input LRCLK,
@@ -49,16 +51,18 @@ cdc_sync #(1)
     rst_i (.siga(_reset), .rstb(1'b0), .clkb(BCLK), .sigb(reset));
 
 wire sync;
-rcv_i2s rcv_i2s (BCLK, reset, LRCLK, DIN, sync, tx_real, tx_imag, i2s_ok);
+rcv_i2s #(.WORD(WORD)) rcv_i2s (BCLK, reset, LRCLK, DIN, sync, tx_real, tx_imag, i2s_ok);
 
-trm_i2s trm_i2s (BCLK, DOUT, sync, rx_real, rx_imag);
+trm_i2s #(.WORD(WORD)) trm_i2s (BCLK, DOUT, sync, rx_real, rx_imag);
 
 endmodule
 
 //-----------------------------------------------------------------------
 //  Receive data from I2S bus
 //-----------------------------------------------------------------------
-module rcv_i2s (
+module rcv_i2s 
+#(parameter WORD=32) 
+(
     input clock,
     input reset,
     input WS,
@@ -77,7 +81,7 @@ module rcv_i2s (
 // State maschine for I2S bus
 reg [2:0] state;
 reg [5:0] bit_cnt;
-reg [63:0] buffer;
+reg [(WORD*2-1):0] buffer;
 
 `ifndef DEBUG_I2S
 assign  i2s_ok = 1'dz;
@@ -104,14 +108,14 @@ always @(posedge clock)
             end
     2:
         begin
-            buffer[63-bit_cnt] <= DIN;
-            if(bit_cnt==63)
+            buffer[(WORD*2-1)-bit_cnt] <= DIN;
+            if(bit_cnt==(WORD*2-1))
                 bit_cnt <= 1'd0;
             else
                 bit_cnt <= bit_cnt + 1'd1;
-            if(bit_cnt==63 & WS)
+            if(bit_cnt==(WORD*2-1) & WS)
                 state <= 0; // Auto syncronisation
-            if(bit_cnt==31 & !WS)
+            if(bit_cnt==(WORD-1) & !WS)
                 state <= 0; // Auto syncronisation
         end
     default:
@@ -121,10 +125,10 @@ always @(posedge clock)
 always @(negedge clock)
     if(bit_cnt==0)
         begin
-            data_left <= buffer[63:48];
-            data_right <= buffer[31:16];
+            data_left <= buffer[(WORD*2-1):(WORD*2-1)-15];
+            data_right <= buffer[(WORD-1):(WORD-1)-15];
 `ifdef DEBUG_I2S
-            i2s_ok <= (buffer[63:40] == 24'h654321 && buffer[31:8] == 24'hfedcba && buffer[7:0] == buffer[7:0]);
+            i2s_ok <= (buffer[(WORD*2-1):40] == 24'h654321 && buffer[(WORD-1):8] == 24'hfedcba && buffer[7:0] == buffer[7:0]);
 `endif
         end
 
@@ -133,16 +137,19 @@ endmodule
 //--------------------------------------------------------------------
 // Send data to I2S bus
 //--------------------------------------------------------------------
-module trm_i2s (
+module trm_i2s 
+#(parameter WORD=32)
+ 
+(
     input clock,
     output reg DOUT,
     input sync,
-    input [23:0] data_left,
-    input [23:0] data_right
+    input [23:0] data_right,
+    input [23:0] data_left	 
     );
 
 reg [5:0] bit_cnt;
-reg [63:0] buffer;
+reg [(WORD*2-1):0] buffer;
 
 `ifdef DEBUG_I2S
 reg [7:0] byte_cnt;
@@ -152,17 +159,20 @@ always @(negedge clock)
     if(!sync)
         begin
             bit_cnt <= 1'd0;
+				buffer <= WORD*2'd0;
+
 `ifdef DEBUG_I2S
             byte_cnt <= 1'd0;
 `endif
         end
     else
         begin
-            DOUT <= buffer[63-bit_cnt];
-            if(bit_cnt==63)
+            DOUT <= buffer[(WORD*2-1)-bit_cnt];
+            if(bit_cnt==(WORD*2-1))
                 begin
 `ifndef DEBUG_I2S
-                buffer <= {data_left, 8'd0, data_right, 8'd0};
+                buffer[(WORD*2-1):(WORD*2-1)-23] <= data_left;
+					 buffer[(WORD-1):(WORD-1)-23] <= data_right;
 // buffer <= {data_left, byte_cnt, data_right, byte_cnt};
 `else
 				buffer <= {24'h123456, byte_cnt, 24'habcdef, byte_cnt};

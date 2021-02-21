@@ -1,7 +1,12 @@
 //
 //
 
-module Transmitter(
+module Transmitter
+#(
+	parameter CLOCK_FREQ=153600000, 
+	parameter MAX_CW_LEVEL = 16'd39000 // 65535 max
+) 
+(
 input clock,
 input _reset,
 output [13:0] dac_data,
@@ -36,10 +41,15 @@ cdc_sync #(1)
 reg signed [15:0] tx_reg_real, tx_reg_imag;
 always @(posedge req1) begin tx_reg_real <= tx_real; tx_reg_imag <= tx_imag;  end
 
+
+localparam fixed_interpolation = 8; // from Fir8
+localparam [9:0] CiCInterpolateRate =  320; // CLOCK_FREQ / (fixed_interpolation*48000); // Interpolation 76.8MHz:200, 122.88MHz:320, 153.6MHz:400
+
 // TX phase count
-// localparam M2 = 32'd1876499845;  // B57 = 2^57.   M2 = B57/76800000
-localparam M2 = 32'd938249922;  // B57 = 2^57.   M2 = B57/153600000
-localparam M3 = 32'd16777216;    // M3 = 2^24, used to round the result
+localparam [63:0] B58 = 1<<58; // 2^58 
+localparam [31:0] M2 = (((B58/CLOCK_FREQ)+1)>>1); // 2^57 / CLOCK_FREQ rounded 
+localparam [31:0] M3 = 1 << 24; //  M3 = 2^24, used to round the result
+
 wire [63:0] ratio = tx_freq * M2 + M3;
 wire [31:0] tx_tune_phase = ratio[56:25];
 
@@ -64,7 +74,6 @@ always @ (posedge pro_clock)
 
 // CW profiling
 wire [15:0] cw_level;
-parameter MAX_CW_LEVEL = 16'd39000; // 65535 max
 mult_16x16_uns cw_mult (MAX_CW_LEVEL, cw_profile, cw_level);
 
 // Switch sample source

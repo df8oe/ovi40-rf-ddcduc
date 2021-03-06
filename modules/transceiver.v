@@ -139,7 +139,7 @@ module transceiver
     // Transmitter
     wire [15:0] tx_real, tx_imag;
     wire dac_of;
-    Transmitter #(.CLOCK_FREQ(dac_clock_freq)) tx (dac_clock, reset, dac_data, tx_freq, tx_real, tx_imag, CW, clock_100k, dac_of);
+    Transmitter #(.CLOCK_FREQ(dac_clock_freq)) tx (dac_clock, reset, dac_data, tx_freq, tx_real, tx_imag, CW || s_rate[7], clock_100k, dac_of);
 
     // I2S modules
 	 i2s_master_clocks i2s_master_clocks(

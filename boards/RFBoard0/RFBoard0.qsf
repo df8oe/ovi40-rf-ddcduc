@@ -171,6 +171,7 @@ set_instance_assignment -name IO_STANDARD "1.8 V" -to dummy_2
 set_global_assignment -name IP_SEARCH_PATHS ../../modules
 set_global_assignment -name SEARCH_PATH ../../modules/polyphase_filter
 set_global_assignment -name SEARCH_PATH ../../modules
+set_global_assignment -name QIP_FILE ../../modules/i2c_rom_boardid.qip
 set_global_assignment -name VERILOG_FILE ../../modules/i2c_rom_76m8.v
 set_global_assignment -name QIP_FILE ../../modules/i2c_rom_76m8.qip
 set_global_assignment -name QIP_FILE ../../modules/pll_rx_76m8.qip

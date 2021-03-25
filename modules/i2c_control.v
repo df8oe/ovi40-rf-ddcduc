@@ -55,10 +55,27 @@ localparam Byte2  = 8'd32;
 localparam Ack    = 8'd40;
 localparam Ack1   = 8'd41;
 
+localparam DataRead   = 8'd50;
+localparam DataRead1  = 8'd51;
+localparam DataRead2  = 8'd52;
+localparam DataRead3  = 8'd53;
+localparam ByteRead   = 8'd60;
+localparam ByteRead1  = 8'd61;
+localparam ByteRead2  = 8'd62;
+localparam AckRead    = 8'd70;
+localparam AckRead1   = 8'd71;
+localparam AckRead2   = 8'd72;
+
+localparam [7:0] i2c_address_r = i2c_address + 1;
+
 reg [7:0] state, return_state;
 reg [7:0] data;
 reg [7:0] bit_cnt, byte_cnt;
 reg [23:0] buffer;
+
+wire [7:0] reg_data;
+	 
+i2c_rom_boardid boardid(byte_cnt, clock, reg_data);
 
 // State maschine for I2C slave control
 always @(posedge clock)
@@ -87,7 +104,15 @@ begin
         //
         Addr:  // Recieving first byte (address)
         if(data == i2c_address) begin return_state <= Data; state <= Ack; end
-        else state <= Addr;
+        else
+			begin
+				if(data == i2c_address_r)
+					begin
+						return_state <= DataRead; state <= Ack;
+					end
+				else
+					state <= Addr;
+			end
         //
     Data: // Receiving data bytes
        begin return_state <= Data1; state <= Byte; end
@@ -125,6 +150,53 @@ begin
        begin _SDA <= 1'd0; if(SCL) state <= Ack1; end
     Ack1:
        if(!SCL) begin _SDA <= 1'bz; state <= return_state; end
+	 
+    DataRead: // Transmitting data bytes
+       begin 
+			return_state <= DataRead1; 
+			state <= ByteRead;
+			data <= reg_data;
+       end
+    DataRead1:
+       begin
+			  byte_cnt <= byte_cnt + 1'd1;
+           return_state <= DataRead2;
+           state <= AckRead;
+       end
+    DataRead2:
+       if(byte_cnt !=31) begin state <= DataRead; end
+       else
+           begin
+               byte_cnt <= 1'd0;
+               state <= DataRead3;
+           end
+    DataRead3: state <= DataRead3; // Waiting for Stop condition
+    //
+    // Routines
+    ByteRead:
+        if(!SCL)
+			begin
+				state <= ByteRead1;
+				_SDA <= data[7-bit_cnt] ? 1'bz : 1'b0;
+			end
+			
+    ByteRead1:
+        if(SCL) begin state <= ByteRead2; end
+    ByteRead2:
+        if(bit_cnt != 7) begin bit_cnt <= bit_cnt + 1'd1; state <= ByteRead; end
+        else if(!SCL) begin bit_cnt <= 1'd0; state <= return_state; end
+    //	 
+    AckRead:
+		begin _SDA <= 1'bz; if(SCL) state <= AckRead1; end
+		
+    AckRead1:
+		begin
+		 if(!SCL) begin state <= Start; end
+       else 
+			if(!SDA) begin state <= AckRead2; end
+		end
+    AckRead2:
+       if(!SCL) begin _SDA <= 1'bz; state <= return_state; end
     //
     default: state <= Start;
     endcase
@@ -143,7 +215,7 @@ reg stop_flag;
 always @(posedge clock)
     if(!reset)
         begin
-        s_state <= 1'd0;
+        s_state <= Stop;
         stop_flag <= 0;
     end
     else
@@ -163,7 +235,7 @@ always @(posedge clock)
             s_state <= Stop;
         end
         //
-    default: s_state <= 1'd0;
+    default: s_state <= Stop;
     endcase
 //
 

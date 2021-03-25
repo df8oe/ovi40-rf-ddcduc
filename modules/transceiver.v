@@ -23,7 +23,8 @@
 // to enable I2S test pattern generator and pattern detector, uncomment next line
 // `define DEBUG_I2S
 module transceiver
-#(ADC_CLOCK_FREQ = 153600000)
+#(ADC_CLOCK_FREQ = 153600000,
+  I2C_CTRL = 8'hD2)
 (
     // ADC interface
     input [13:0] adc_data,
@@ -111,7 +112,7 @@ module transceiver
     wire [7:0] s_rate;
     wire [7:0] tx_level;
 	 
-    i2c_control i2c_slave (clock_2M, reset, slave_SDA, slave_SCL, rx_freq, tx_freq, s_rate, tx_level);
+    i2c_control #(.i2c_address(I2C_CTRL)) i2c_slave (clock_2M, reset, slave_SDA, slave_SCL, rx_freq, tx_freq, s_rate, tx_level);
 
     //
     wire clipping;

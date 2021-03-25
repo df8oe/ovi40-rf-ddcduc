@@ -13,7 +13,12 @@
 // TXLEVEL - 1 byte, 0 - 255 transmitting level
 
 
-module i2c_control (
+module i2c_control 
+#(
+	parameter i2c_address = 8'hD2 // this is full 8 bit address including R/W bit
+)
+
+(
 input clock, // 2 MHz
 input _reset,
 inout reg _SDA,
@@ -36,7 +41,6 @@ wire reset;
 cdc_sync #(1)
     rst (.siga(_reset), .rstb(1'b0), .clkb(clock), .sigb(reset));
 
-localparam i2c_address = 8'hD2; // this is full 8 bit address including R/W bit
 
 localparam Start  = 8'd0;
 localparam Start1 = 8'd1;

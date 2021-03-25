@@ -48,7 +48,7 @@ module RFBoard0(
     );
 	 
     transceiver
-	 #(.ADC_CLOCK_FREQ(76800000))
+	 #(.ADC_CLOCK_FREQ(76800000), .I2C_CTRL(8'hD0))
 	 
 	 trx(
     // ADC interface

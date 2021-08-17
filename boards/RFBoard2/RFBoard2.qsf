@@ -108,26 +108,26 @@ set_location_assignment PIN_N6 -to dac_data[12]
 set_location_assignment PIN_P6 -to dac_data[13]
 set_location_assignment PIN_R4 -to dac_clock
 set_location_assignment PIN_M10 -to ad936x_p0[0]
-set_location_assignment PIN_R9 -to ad936x_p0[1]
+set_location_assignment PIN_R14 -to ad936x_p0[1]
 set_location_assignment PIN_P11 -to ad936x_p0[2]
 set_location_assignment PIN_T10 -to ad936x_p0[3]
 set_location_assignment PIN_T12 -to ad936x_p0[4]
-set_location_assignment PIN_T9 -to ad936x_p0[5]
+set_location_assignment PIN_T13 -to ad936x_p0[5]
 set_location_assignment PIN_R12 -to ad936x_p0[6]
 set_location_assignment PIN_P9 -to ad936x_p0[7]
 set_location_assignment PIN_N11 -to ad936x_p0[8]
 set_location_assignment PIN_N9 -to ad936x_p0[9]
 set_location_assignment PIN_N12 -to ad936x_p0[10]
 set_location_assignment PIN_T11 -to ad936x_p0[11]
-set_location_assignment PIN_R14 -to spi_do
+set_location_assignment PIN_R9 -to spi_do
 set_location_assignment PIN_R13 -to spi_di
 set_location_assignment PIN_T14 -to spi_clk
-set_location_assignment PIN_T15 -to /spi_enb
-set_location_assignment PIN_T13 -to data_clk_p
+set_location_assignment PIN_T15 -to nspi_enb
+set_location_assignment PIN_T9 -to data_clk_p
 set_location_assignment PIN_P14 -to txnrx
 set_location_assignment PIN_R10 -to fb_clk_p
 set_location_assignment PIN_R11 -to tx_frame_p
-set_location_assignment PIN_J14 -to /resetb
+set_location_assignment PIN_J14 -to nresetb
 set_location_assignment PIN_R16 -to enable
 set_location_assignment PIN_L14 -to rx_frame_p
 set_location_assignment PIN_N15 -to ad936x_p1[0]
@@ -144,18 +144,18 @@ set_location_assignment PIN_J15 -to ad936x_p1[10]
 set_location_assignment PIN_M15 -to ad936x_p1[11]
 set_location_assignment PIN_F8 -to led1
 set_location_assignment PIN_E7 -to led2
-set_location_assignment PIN_F8 -to led3
+set_location_assignment PIN_E8 -to led3
 set_location_assignment PIN_D8 -to test1
-set_location_assignment PIN_C8 -to test2
+set_location_assignment PIN_B8 -to test2
 set_location_assignment PIN_E6 -to test3
 set_location_assignment PIN_D6 -to test4
 set_location_assignment PIN_C6 -to test5
 set_location_assignment PIN_B4 -to ram_rwds
-set_location_assignment PIN_A4 -to ram_/cs
-set_location_assignment PIN_A3 -to ram_/reset
-set_location_assignment PIN_B8 -to smps_1.3_enable
+set_location_assignment PIN_A4 -to ram_ncs
+set_location_assignment PIN_A3 -to ram_nreset
+set_location_assignment PIN_C8 -to smps_13_enable
 set_location_assignment PIN_A5 -to ram_ck
-set_location_assignment PIN_B5 -to ram_/ck
+set_location_assignment PIN_B5 -to ram_nck
 set_location_assignment PIN_B7 -to ram[0]
 set_location_assignment PIN_A7 -to ram[1]
 set_location_assignment PIN_B3 -to ram[2]
@@ -170,17 +170,17 @@ set_location_assignment PIN_G2 -to DOUT
 set_location_assignment PIN_F3 -to LRCLK
 set_location_assignment PIN_D1 -to OF
 set_location_assignment PIN_K5 -to CW
-set_location_assignment PIN_J1 -to SAICLK
-set_location_assignment PIN_J2 -to RESET
+set_location_assignment PIN_J1 -to MCLK
+set_location_assignment PIN_J2 -to nRES
 set_location_assignment PIN_L2 -to usb[0]
 set_location_assignment PIN_L1 -to usb[1]
 set_location_assignment PIN_L4 -to usb[2]
 set_location_assignment PIN_K1 -to usb[3]
 set_location_assignment PIN_K2 -to usb[4]
 set_location_assignment PIN_L3 -to usb[5]
-set_location_assignment PIN_M2 -to usb[6]
+set_location_assignment PIN_N2 -to usb[6]
 set_location_assignment PIN_N1 -to usb[7]
-set_location_assignment PIN_N2 -to usb_dir
+set_location_assignment PIN_M2 -to usb_dir
 set_location_assignment PIN_P1 -to usb_stp
 set_location_assignment PIN_M1 -to usb_nxt
 set_location_assignment PIN_P2 -to usb_resetb
@@ -190,12 +190,8 @@ set_location_assignment PIN_B12 -to master_SDA
 set_location_assignment PIN_E1 -to slave_SCL
 set_location_assignment PIN_G1 -to slave_SDA
 set_location_assignment PIN_M16 -to clock_10M
-set_location_assignment PIN_L15 -to _10M_out
-set_location_assignment PIN_N14 -to _10M_in
-set_location_assignment PIN_L13 -to MCLK
-set_location_assignment PIN_L16 -to nRES
-set_location_assignment PIN_N15 -to dummy_1
-set_location_assignment PIN_P16 -to dummy_2
+set_location_assignment PIN_M6 -to _10M_out
+set_location_assignment PIN_N16 -to _10M_in
 set_global_assignment -name DEVICE_FILTER_PACKAGE UFBGA
 set_global_assignment -name DEVICE_FILTER_PIN_COUNT 256
 set_global_assignment -name DEVICE_FILTER_SPEED_GRADE 8L
@@ -311,15 +307,11 @@ set_instance_assignment -name IO_STANDARD "1.2 V" -to data_clk_p
 set_instance_assignment -name IO_STANDARD "1.2 V" -to txnrx
 set_instance_assignment -name IO_STANDARD "1.2 V" -to fb_clk_p
 set_instance_assignment -name IO_STANDARD "1.2 V" -to tx_frame_p
-set_instance_assignment -name IO_STANDARD "1.2 V" -to /resetb
+set_instance_assignment -name IO_STANDARD "1.2 V" -to nresetb
 set_instance_assignment -name IO_STANDARD "1.2 V" -to enable
 set_instance_assignment -name IO_STANDARD "1.2 V" -to rx_frame_p
-set_instance_assignment -name IO_STANDARD "1.2 V" -to dummy_1
-set_instance_assignment -name IO_STANDARD "1.2 V" -to dummy_2
-set_instance_assignment -name IO_STANDARD "1.2 V" -to _10M_out
+set_instance_assignment -name IO_STANDARD "1.8 V" -to _10M_out
 set_instance_assignment -name IO_STANDARD "1.2 V" -to _10M_in
-set_instance_assignment -name IO_STANDARD "1.2 V" -to MCLK
-set_instance_assignment -name IO_STANDARD "1.2 V" -to nRES
 set_instance_assignment -name IO_STANDARD "1.2 V" -to clock_10M
 set_instance_assignment -name IO_STANDARD "1.8 V" -to led1
 set_instance_assignment -name IO_STANDARD "1.8 V" -to led2
@@ -353,11 +345,11 @@ set_instance_assignment -name IO_STANDARD "1.2 V" -to ad936x_p1[8]
 set_instance_assignment -name IO_STANDARD "1.2 V" -to ad936x_p1[9]
 set_instance_assignment -name IO_STANDARD "1.2 V" -to ad936x_p1[11]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to ram_rwds
-set_instance_assignment -name IO_STANDARD "1.8 V" -to ram_/cs
-set_instance_assignment -name IO_STANDARD "1.8 V" -to ram_/reset
-set_instance_assignment -name IO_STANDARD "1.8 V" -to smps_1.3_enable
+set_instance_assignment -name IO_STANDARD "1.8 V" -to ram_ncs
+set_instance_assignment -name IO_STANDARD "1.8 V" -to ram_nreset
+set_instance_assignment -name IO_STANDARD "1.8 V" -to smps_13_enable
 set_instance_assignment -name IO_STANDARD "1.8 V" -to ram_ck
-set_instance_assignment -name IO_STANDARD "1.8 V" -to ram_/ck
+set_instance_assignment -name IO_STANDARD "1.8 V" -to ram_nck
 set_instance_assignment -name IO_STANDARD "1.8 V" -to ram[0]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to ram[1]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to ram[2]
@@ -367,5 +359,5 @@ set_instance_assignment -name IO_STANDARD "1.8 V" -to ram[5]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to ram[6]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to ram[7]
 set_instance_assignment -name IO_STANDARD "1.2 V" -to ad936x_p1[10]
-set_instance_assignment -name IO_STANDARD "1.2 V" -to /spi_enb
+set_instance_assignment -name IO_STANDARD "1.2 V" -to nspi_enb
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

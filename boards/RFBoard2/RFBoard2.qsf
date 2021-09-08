@@ -264,8 +264,8 @@ set_global_assignment -name VERILOG_FILE ../../modules/mult_16x16_uns.v
 set_global_assignment -name QIP_FILE ../../modules/mult_16x16_uns.qip
 set_global_assignment -name VERILOG_FILE ../../modules/i2s_module.v
 set_global_assignment -name VERILOG_FILE ../../modules/i2s_master_clocks.v
-set_global_assignment -name VERILOG_FILE ../../modules/i2c_rom_153m6.v
-set_global_assignment -name QIP_FILE ../../modules/i2c_rom_153m6.qip
+set_global_assignment -name VERILOG_FILE ../../modules/i2c_rom_rf2.v
+set_global_assignment -name QIP_FILE ../../modules/i2c_rom_rf2.qip
 set_global_assignment -name VERILOG_FILE ../../modules/i2c_control.v
 set_global_assignment -name VERILOG_FILE ../../modules/firX8R8.v
 set_global_assignment -name VERILOG_FILE ../../modules/firram36I.v

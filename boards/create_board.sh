@@ -20,7 +20,7 @@ fi
 
 if [ -d "$DST" ]
 then
-	echo "Destionation Directory \"$DST\" exists"
+	echo "Destination Directory \"$DST\" exists"
 	exit 2
 fi
 

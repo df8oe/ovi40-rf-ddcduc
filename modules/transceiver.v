@@ -63,11 +63,12 @@ module transceiver
     // Test pins
     output led1,
     output led2,
+	 output led3,
     output test1,
-    output test2,
+    input test2,
     output test3,
-    output test4
-
+    output test4,
+    output test5
     );
 
 	 
@@ -77,6 +78,9 @@ module transceiver
     assign _10M_out = _10M_in;
     assign MCLK = ~_mclk & lock_rx;
     assign nRES = reset;
+	 assign test3 = clock_10M;
+	 assign test4 = clock_2M;
+	 assign test5 = clock_100k;
 
     wire _mclk;
 

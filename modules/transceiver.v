@@ -3,7 +3,7 @@
 //
 //  Author N7DDC, modified by DF8OE, DB4PLE
 //
-//  Implements the main transceiver structures 
+//  Implements the main transceiver structures
 //
 //  FPGA code.
 //
@@ -63,7 +63,7 @@ module transceiver
     // Test pins
     output led1,
     output led2,
-	 output led3,
+    output led3,
     output test1,
     input test2,
     output test3,
@@ -71,16 +71,14 @@ module transceiver
     output test5
     );
 
-	 
-	 localparam dac_clock_freq = ADC_CLOCK_FREQ;
+    localparam dac_clock_freq = ADC_CLOCK_FREQ;
 
-	 
     assign _10M_out = _10M_in;
     assign MCLK = ~_mclk & lock_rx;
     assign nRES = reset;
-	 assign test3 = clock_10M;
-	 assign test4 = clock_2M;
-	 assign test5 = clock_100k;
+    assign test1 = clock_10M;
+    assign test4 = clock_2M;
+    assign test5 = clock_100k;
 
     wire _mclk;
 
@@ -88,12 +86,12 @@ module transceiver
 
     // PLL 1
     wire main_clock, SAICLK, lock_rx;
-	 
-	 generate 
-	 if (ADC_CLOCK_FREQ == 76800000)
+
+    generate
+    if (ADC_CLOCK_FREQ == 76800000)
         pll_rx_76m8 prx (adc_clock, dac_clock, SAICLK, main_clock, lock_rx);
- 	 else    
-         pll_rx_153m6 prx (adc_clock, dac_clock, SAICLK, main_clock, lock_rx);
+    else
+        pll_rx_153m6 prx (adc_clock, dac_clock, SAICLK, main_clock, lock_rx);
     endgenerate
 
 
@@ -114,7 +112,7 @@ module transceiver
     wire [31:0] tx_freq;
     wire [7:0] s_rate;
     wire [7:0] tx_level;
-	 
+
     i2c_control i2c_slave (clock_2M, reset, slave_SDA, slave_SCL, rx_freq, tx_freq, s_rate, tx_level);
 
     //
@@ -146,24 +144,24 @@ module transceiver
     Transmitter #(.CLOCK_FREQ(dac_clock_freq)) tx (dac_clock, reset, dac_data, tx_freq, tx_real, tx_imag, CW || s_rate[7], clock_100k, dac_of);
 
     // I2S modules
-	 i2s_master_clocks i2s_master_clocks(
-							.reset(reset),
-                     .s_rate(s_rate),
-							.SAICLK(SAICLK),
-							.BCLK(BCLK),
-							.LRCLK(LRCLK));
-	 
-    i2s_module i2s_master ( 
-	                  ._reset(reset), 
-                     .BCLK(BCLK), 
-							.LRCLK(LRCLK), 
-							.DIN(DIN), 
-							.DOUT(DOUT), 
-							._rx_real(rx_real), 
-							._rx_imag(rx_imag), 
-							.tx_real(tx_real), 
-							.tx_imag(tx_imag), 
-							.i2s_ok(i2s_ok));
+    i2s_master_clocks i2s_master_clocks(
+    .reset(reset),
+    .s_rate(s_rate),
+    .SAICLK(SAICLK),
+    .BCLK(BCLK),
+    .LRCLK(LRCLK));
+
+    i2s_module i2s_master (
+      ._reset(reset),
+      .BCLK(BCLK),
+      .LRCLK(LRCLK),
+      .DIN(DIN),
+      .DOUT(DOUT),
+      ._rx_real(rx_real),
+      ._rx_imag(rx_imag),
+      .tx_real(tx_real),
+      .tx_imag(tx_imag),
+      .i2s_ok(i2s_ok));
 
     // Power level
     reg [7:0] pwm_cnt;

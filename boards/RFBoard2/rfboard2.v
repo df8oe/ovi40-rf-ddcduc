@@ -11,36 +11,36 @@ module RFBoard2(
     input adc2_clock,
     input adc2_overrange,
 
-	// AD936x interface
-	output [11:0] ad936x_p0,
-	input [11:0] ad936x_p1,
-	input rx_frame_p,
-	output enable,
-	output nresetb,
-	output tx_frame_p,
-	output fb_clk_p,
-	output txnrx,
-	input data_clk_p,
-	output nspi_enb,
-	output spi_clk,
-	output spi_di,
-	input spi_do,
+    // AD936x interface
+    output [11:0] ad936x_p0,
+    input [11:0] ad936x_p1,
+    input rx_frame_p,
+    output enable,
+    output nresetb,
+    output tx_frame_p,
+    output fb_clk_p,
+    output txnrx,
+    input data_clk_p,
+    output nspi_enb,
+    output spi_clk,
+    output spi_di,
+    input spi_do,
 
-	// RAM interface
-	inout [7:0] ram,
-	output ram_ncs,
-	output ram_nreset,
-	output ram_nck,
-	output ram_ck,
-	inout ram_rwds,
+    // RAM interface
+    inout [7:0] ram,
+    output ram_ncs,
+    output ram_nreset,
+    output ram_nck,
+    output ram_ck,
+    inout ram_rwds,
 
-	// USB interface
-	inout [7:0] usb,
-	input usb_dir,
-	input usb_nxt,
-	output usb_refclk,
-	output usb_resetb,
-	output usb_stp,
+    // USB interface
+    inout [7:0] usb,
+    input usb_dir,
+    input usb_nxt,
+    output usb_refclk,
+    output usb_resetb,
+    output usb_stp,
 
     // DAC interface
     output [13:0] dac_data,
@@ -53,7 +53,6 @@ module RFBoard2(
     output BCLK,
     output LRCLK,
     output MCLK,
-    inout RESET,
 
     // I2C slave control bus
     inout slave_SDA,
@@ -82,10 +81,10 @@ module RFBoard2(
     output test4,
     output test5
     );
-	 
+
     transceiver
-	 
-	 trx(
+
+    trx(
     // ADC interfaces
     .adc_data(adc_data),
     .adc_clock(adc_clock),
@@ -122,12 +121,12 @@ module RFBoard2(
     // Test pins
     .led1(led1),
     .led2(led2),
-	 .led3(led3),
+    .led3(led3),
     .test1(test1),
     .test2(test2),
     .test3(test3),
     .test4(test4),
-	 .test5(test5)
+    .test5(test5)
     );
 
 endmodule

@@ -46,10 +46,10 @@ module RFBoard1(
     output test4
 
     );
-	 
+
     transceiver
-	 
-	 trx(
+
+    trx(
     // ADC interface
     .adc_data(adc_data),
     .adc_clock(adc_clock),
@@ -92,7 +92,6 @@ module RFBoard1(
     .test2(test2),
     .test3(test3),
     .test4(test4)
-
     );
 
 endmodule

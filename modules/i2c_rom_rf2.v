@@ -37,7 +37,7 @@
 // synopsys translate_off
 `timescale 1 ps / 1 ps
 // synopsys translate_on
-module i2c_rom_rf2 (
+module i2c_rom_153m6 (
     address,
     clock,
     q);

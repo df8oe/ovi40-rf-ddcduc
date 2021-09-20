@@ -12,8 +12,8 @@ module RFBoard2(
     input adc2_overrange,
 
     // AD936x interface
-    output [11:0] ad936x_p0,
-    input [11:0] ad936x_p1,
+    inout [11:0] ad936x_p0,
+    inout [11:0] ad936x_p1,
     input rx_frame_p,
     output enable,
     output nresetb,

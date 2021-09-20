@@ -24,7 +24,7 @@
 
 
 set_global_assignment -name FAMILY "Cyclone 10 LP"
-set_global_assignment -name DEVICE 10CL025ZU256I8G
+set_global_assignment -name DEVICE 10CL016ZU256I8G
 set_global_assignment -name TOP_LEVEL_ENTITY RFBoard2
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:00:26  FEBRUARY 20, 2021"
@@ -72,7 +72,7 @@ set_location_assignment PIN_F15 -to adc_data[9]
 set_location_assignment PIN_F16 -to adc_data[10]
 set_location_assignment PIN_G15 -to adc_data[11]
 set_location_assignment PIN_G16 -to adc_data[12]
-set_location_assignment PIN_E15 -to adc_data[13]
+set_location_assignment PIN_D14 -to adc_data[13]
 set_location_assignment PIN_E16 -to adc_clock
 set_location_assignment PIN_E9 -to adc_overrange
 set_location_assignment PIN_A9 -to adc2_data[0]
@@ -89,7 +89,7 @@ set_location_assignment PIN_A14 -to adc2_data[10]
 set_location_assignment PIN_A15 -to adc2_data[11]
 set_location_assignment PIN_B14 -to adc2_data[12]
 set_location_assignment PIN_C14 -to adc2_data[13]
-set_location_assignment PIN_D14 -to adc2_clock
+set_location_assignment PIN_E15 -to adc2_clock
 set_location_assignment PIN_D12 -to adc2_overrange
 set_location_assignment PIN_P8 -to level_pwm
 set_location_assignment PIN_T2 -to dac_data[0]
@@ -129,7 +129,7 @@ set_location_assignment PIN_R10 -to fb_clk_p
 set_location_assignment PIN_R11 -to tx_frame_p
 set_location_assignment PIN_J14 -to nresetb
 set_location_assignment PIN_R16 -to enable
-set_location_assignment PIN_L14 -to rx_frame_p
+set_location_assignment PIN_M15 -to rx_frame_p
 set_location_assignment PIN_N15 -to ad936x_p1[0]
 set_location_assignment PIN_P16 -to ad936x_p1[1]
 set_location_assignment PIN_L15 -to ad936x_p1[2]
@@ -141,7 +141,7 @@ set_location_assignment PIN_J13 -to ad936x_p1[7]
 set_location_assignment PIN_J16 -to ad936x_p1[8]
 set_location_assignment PIN_K16 -to ad936x_p1[9]
 set_location_assignment PIN_J15 -to ad936x_p1[10]
-set_location_assignment PIN_M15 -to ad936x_p1[11]
+set_location_assignment PIN_L14 -to ad936x_p1[11]
 set_location_assignment PIN_F8 -to led1
 set_location_assignment PIN_E7 -to led2
 set_location_assignment PIN_E8 -to led3

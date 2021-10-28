@@ -2,7 +2,7 @@
 
 **The journey has begun!**
 
-The idea was to develop a small but powerful SDR RX/TX synthesizer module for OVI40 UI PCB. The UI-PCB was inspired by legendary mcHF made by Chris, M0NKA. This UI uses STM32F7 / H7 processor and interfaces to a LCD (standard 3.5" / 480x320), encoders / buttons, I2C / SPI busses and SAI for I/Q data transfer. It is running with [UHSDR](https://github.com/df8oe/UHSDR). Result is a direct sampling module which allows short wave and VHF/UHF/SHF working in "standalone" - included QO100 without the need of a computer or a transverter.
+The idea was to develop a small but powerful SDR RX/TX synthesizer module for OVI40 UI PCB. The UI-PCB was inspired by legendary [mcHF made by Chris, M0NKA](http://m0nka.co.uk). This UI uses STM32F7 / H7 processor and interfaces to a LCD (standard 3.5" / 480x320), encoders / buttons, I2C / SPI busses and SAI for I/Q data transfer. It is running with [UHSDR](https://github.com/df8oe/UHSDR). Result is a direct sampling module which allows short wave and VHF/UHF/SHF working in "standalone" - included QO100 without the need of a computer or a transverter.
 Inspiration (and starting point of FPGA firmware) was [N7DDCs "DDC2 module"](https://github.com/Dfinitski/DDC_Module_2)
 
 ### OVI40-RF1 (which was only an intermediate development state) is a 4 layer PCB inspired by DDC2 with this hardware specifications:

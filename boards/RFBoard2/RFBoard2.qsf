@@ -24,11 +24,12 @@
 
 
 set_global_assignment -name FAMILY "Cyclone 10 LP"
-set_global_assignment -name DEVICE 10CL016ZU256I8G
+set_global_assignment -name DEVICE 10CL025ZU256I8G
 set_global_assignment -name TOP_LEVEL_ENTITY RFBoard2
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:00:26  FEBRUARY 20, 2021"
 set_global_assignment -name LAST_QUARTUS_VERSION "20.1.1 Lite Edition"
+set_global_assignment -name NUM_PARALLEL_PROCESSORS 4
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY build
 set_global_assignment -name USE_GENERATED_PHYSICAL_CONSTRAINTS OFF -section_id eda_blast_fpga
 set_global_assignment -name CYCLONEII_OPTIMIZATION_TECHNIQUE SPEED
@@ -59,22 +60,22 @@ set_global_assignment -name POWER_REPORT_SIGNAL_ACTIVITY ON
 set_global_assignment -name POWER_REPORT_POWER_DISSIPATION ON
 set_global_assignment -name ENABLE_OCT_DONE OFF
 set_global_assignment -name CONFIGURATION_VCCIO_LEVEL 3.3V
-set_location_assignment PIN_E10 -to adc_data[0]
-set_location_assignment PIN_B16 -to adc_data[1]
-set_location_assignment PIN_C15 -to adc_data[2]
-set_location_assignment PIN_C16 -to adc_data[3]
-set_location_assignment PIN_E11 -to adc_data[4]
-set_location_assignment PIN_D15 -to adc_data[5]
-set_location_assignment PIN_D16 -to adc_data[6]
-set_location_assignment PIN_F14 -to adc_data[7]
-set_location_assignment PIN_F13 -to adc_data[8]
-set_location_assignment PIN_F15 -to adc_data[9]
-set_location_assignment PIN_F16 -to adc_data[10]
-set_location_assignment PIN_G15 -to adc_data[11]
-set_location_assignment PIN_G16 -to adc_data[12]
-set_location_assignment PIN_D14 -to adc_data[13]
-set_location_assignment PIN_E16 -to adc_clock
-set_location_assignment PIN_E9 -to adc_overrange
+set_location_assignment PIN_E10 -to adc1_data[0]
+set_location_assignment PIN_B16 -to adc1_data[1]
+set_location_assignment PIN_C15 -to adc1_data[2]
+set_location_assignment PIN_C16 -to adc1_data[3]
+set_location_assignment PIN_E11 -to adc1_data[4]
+set_location_assignment PIN_D15 -to adc1_data[5]
+set_location_assignment PIN_D16 -to adc1_data[6]
+set_location_assignment PIN_F14 -to adc1_data[7]
+set_location_assignment PIN_F13 -to adc1_data[8]
+set_location_assignment PIN_F15 -to adc1_data[9]
+set_location_assignment PIN_F16 -to adc1_data[10]
+set_location_assignment PIN_G15 -to adc1_data[11]
+set_location_assignment PIN_G16 -to adc1_data[12]
+set_location_assignment PIN_D14 -to adc1_data[13]
+set_location_assignment PIN_E16 -to adc1_clock
+set_location_assignment PIN_E9 -to adc1_overrange
 set_location_assignment PIN_A9 -to adc2_data[0]
 set_location_assignment PIN_A10 -to adc2_data[1]
 set_location_assignment PIN_B10 -to adc2_data[2]
@@ -204,23 +205,21 @@ set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name LL_ROOT_REGION ON -section_id "Root Region"
 set_global_assignment -name LL_MEMBER_STATE LOCKED -section_id "Root Region"
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[0]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[1]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[2]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[3]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[4]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[5]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[6]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[7]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[8]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[9]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[10]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[11]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[12]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_data[13]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_overrange
-set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_data[0]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_data[1]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_data[2]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_data[3]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_data[4]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_data[5]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_data[6]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_data[7]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_data[8]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_data[9]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_data[10]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_data[11]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_data[12]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_data[13]
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_overrange
 set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[0]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[1]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[2]
@@ -235,7 +234,7 @@ set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[10]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[11]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[12]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_data[13]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to adc_clock
+set_instance_assignment -name IO_STANDARD "1.8 V" -to adc1_clock
 set_instance_assignment -name IO_STANDARD "1.8 V" -to dac_clock
 set_instance_assignment -name IO_STANDARD "1.8 V" -to master_SCL
 set_instance_assignment -name IO_STANDARD "1.8 V" -to master_SDA
@@ -360,4 +359,24 @@ set_instance_assignment -name IO_STANDARD "1.8 V" -to ram[6]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to ram[7]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to ad936x_p1[10]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to nspi_enb
+set_global_assignment -name AUTO_SHIFT_REGISTER_RECOGNITION ALWAYS
+set_global_assignment -name ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP ON
+set_global_assignment -name REMOVE_REDUNDANT_LOGIC_CELLS ON
+set_global_assignment -name MUX_RESTRUCTURE AUTO
+set_global_assignment -name ALLOW_ANY_ROM_SIZE_FOR_RECOGNITION ON
+set_global_assignment -name ALLOW_ANY_RAM_SIZE_FOR_RECOGNITION ON
+set_global_assignment -name ALLOW_ANY_SHIFT_REGISTER_SIZE_FOR_RECOGNITION ON
+set_global_assignment -name ALLOW_SHIFT_REGISTER_MERGING_ACROSS_HIERARCHIES ALWAYS
+set_global_assignment -name ROUTER_CLOCKING_TOPOLOGY_ANALYSIS ON
+set_global_assignment -name PHYSICAL_SYNTHESIS_COMBO_LOGIC OFF
+set_global_assignment -name PHYSICAL_SYNTHESIS_REGISTER_DUPLICATION OFF
+set_global_assignment -name PHYSICAL_SYNTHESIS_REGISTER_RETIMING OFF
+set_global_assignment -name ROUTER_LCELL_INSERTION_AND_LOGIC_DUPLICATION ON
+set_global_assignment -name ROUTER_TIMING_OPTIMIZATION_LEVEL MAXIMUM
+set_global_assignment -name QII_AUTO_PACKED_REGISTERS NORMAL
+set_global_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION ON
+set_global_assignment -name OPTIMIZE_HOLD_TIMING "ALL PATHS"
+set_global_assignment -name PHYSICAL_SYNTHESIS_ASYNCHRONOUS_SIGNAL_PIPELINING ON
+set_location_assignment PLL_1 -to "timing:pll1|altpll:altpll_component|pll_10M_altpll:auto_generated"
+set_location_assignment PLL_2 -to "timing:pll1|altpll:altpll_component|pll_rx_153m6_altpll:auto_generated"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

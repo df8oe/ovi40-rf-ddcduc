@@ -4,7 +4,7 @@
 // Seattle, 2020
 
 // Protocol of data exchange:
-// Start -> Address -> RXF3(MSB)_byte -> RXF2_byte -> RXF1_byte -> RXF0(LSB)_byte -> 
+// Start -> Address -> RXF3(MSB)_byte -> RXF2_byte -> RXF1_byte -> RXF0(LSB)_byte ->
 // -> TXF3(MSB)_byte -> TXF2_byte -> TXF1_byte -> TXF0(LSB)_byte -> SRATE -> TXLEVEL-> Stop
 //
 // Where RXF - 32 bit or 4 bytes of receiver frequency
@@ -41,6 +41,7 @@ localparam i2c_address = 8'hD2; // this is full 8 bit address including R/W bit
 localparam Start  = 8'd0;
 localparam Start1 = 8'd1;
 localparam Addr   = 8'd10;
+localparam Regi   = 8'd12;
 localparam Data   = 8'd20;
 localparam Data1  = 8'd21;
 localparam Data2  = 8'd22;
@@ -55,6 +56,9 @@ reg [7:0] state, return_state;
 reg [7:0] data;
 reg [7:0] bit_cnt, byte_cnt;
 reg [23:0] buffer;
+reg [7:0] i2cregister;
+reg [1:0] recdataready;
+reg [79:0] inbuffer;
 
 // State maschine for I2C slave control
 always @(posedge clock)
@@ -70,6 +74,9 @@ begin
         _SDA <= 1'bz;
         s_rate <= 0;
         tx_level <= 0;
+        recdataready <= 0;
+        inbuffer <= 0;
+        i2cregister <= 0;
     end
     else if(stop_flag) state <= Start1;
     //
@@ -78,11 +85,15 @@ begin
         if(SDA & SCL) state <=  Start1;
     //
     Start1:
-        if(!SDA & SCL) begin return_state <= Addr; state <= Byte;  bit_cnt <= 0; byte_cnt <= 0; end 
+        if(!SDA & SCL) begin return_state <= Addr; state <= Byte;  bit_cnt <= 0; byte_cnt <= 0; end
             else if(!SCL) state <= Start;
         //
-        Addr:  // Recieving first byte (address)
-        if(data == i2c_address) begin return_state <= Data; state <= Ack; end
+    Addr:  // Receiving first byte (address & r/w-state)
+        if(data[7:1] == i2c_address[7:1])
+          // writing to rf board
+          if(!data[0]) begin return_state <= Data; state <= Ack; end
+            // reading from rf board (2do!!)
+          else begin state <= Addr; end
         else state <= Addr;
         //
     Data: // Receiving data bytes
@@ -96,6 +107,18 @@ begin
            if(byte_cnt==7) tx_freq <= {buffer, data};
            if(byte_cnt==8) s_rate <= data;
            if(byte_cnt==9) tx_level <= data;
+
+//           if(byte_cnt==0) i2cregister <= data; // feeding one large buffer max. 10 bytes - i2c wip
+//           if(byte_cnt==1) inbuffer[71:64] <= data;
+//           if(byte_cnt==2) inbuffer[63:56] <= data;
+//           if(byte_cnt==3) inbuffer[55:48] <= data;
+//           if(byte_cnt==4) inbuffer[47:40] <= data;
+//           if(byte_cnt==5) inbuffer[39:32] <= data;
+//           if(byte_cnt==6) inbuffer[31:24] <= data;
+//           if(byte_cnt==7) inbuffer[23:16] <= data;
+//           if(byte_cnt==8) inbuffer[15:8] <= data;
+//           if(byte_cnt==9) inbuffer[7:0] <= data;
+
            return_state <= Data2;
            state <= Ack;
        end

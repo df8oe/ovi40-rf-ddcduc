@@ -3,9 +3,9 @@
 // `define DEBUG_I2S
 module RFBoard2(
     // ADC interfaces
-    input [13:0] adc_data,
-    input adc_clock,
-    input adc_overrange,
+    input [13:0] adc1_data,
+    input adc1_clock,
+    input adc1_overrange,
 
     input [13:0] adc2_data,
     input adc2_clock,
@@ -86,9 +86,9 @@ module RFBoard2(
 
     trx(
     // ADC interfaces
-    .adc_data(adc_data),
-    .adc_clock(adc_clock),
-    .adc_overrange(adc_overrange),
+    .adc_data(adc1_data),
+    .adc_clock(adc1_clock),
+    .adc_overrange(adc1_overrange),
 
     // DAC interface
     .dac_data(dac_data),
@@ -114,8 +114,6 @@ module RFBoard2(
     .CW(CW),
     .nRES(nRES),
     .OF(OF),
-    ._10M_in(_10M_in),
-    ._10M_out(_10M_out),
     .clock_10M(clock_10M),
 
     // Test pins

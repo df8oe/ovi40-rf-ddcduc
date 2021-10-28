@@ -59,6 +59,7 @@ reg [23:0] buffer;
 reg [7:0] i2cregister;
 reg [1:0] recdataready;
 reg [79:0] inbuffer;
+reg [3:0] databytes;
 
 // State maschine for I2C slave control
 always @(posedge clock)
@@ -67,12 +68,15 @@ begin
     begin
         state <= 1'd0;
         return_state <= 1'd0;
-        rx_freq <= 32'd7_000_000;
-        tx_freq <= 32'd7_000_000;
+        rx_freq <= 32'd7_000_000;	// default RX freq = 7MHz
+        tx_freq <= 32'd7_000_000;	// default TX freq = 7MHz
+//        s_rate <= 0; // default samplerate = 192 ksps		// position 1
+//        tx_level <= 0;
         bit_cnt <= 1'd0;
         byte_cnt <= 1'd0;
+        databytes <= 4'd9;
         _SDA <= 1'bz;
-        s_rate <= 0;
+        s_rate <= 8'd0; // default samplerate = 48 ksps		// position 2
         tx_level <= 0;
         recdataready <= 0;
         inbuffer <= 0;
@@ -85,7 +89,7 @@ begin
         if(SDA & SCL) state <=  Start1;
     //
     Start1:
-        if(!SDA & SCL) begin return_state <= Addr; state <= Byte;  bit_cnt <= 0; byte_cnt <= 0; end
+        if(!SDA & SCL) begin return_state <= Addr; state <= Byte;  bit_cnt <= 0; byte_cnt <= 0; databytes <= 4'd9; end
             else if(!SCL) state <= Start;
         //
     Addr:  // Receiving first byte (address & r/w-state)
@@ -100,30 +104,31 @@ begin
        begin return_state <= Data1; state <= Byte; end
     Data1:
        begin
-           if(byte_cnt==0 | byte_cnt==4) buffer[23:16] <= data;
-           if(byte_cnt==1 | byte_cnt==5) buffer[15:8]  <= data;
-           if(byte_cnt==2 | byte_cnt==6) buffer[7:0]   <= data;
-           if(byte_cnt==3) rx_freq <= {buffer, data};
-           if(byte_cnt==7) tx_freq <= {buffer, data};
-           if(byte_cnt==8) s_rate <= data;
-           if(byte_cnt==9) tx_level <= data;
-
-//           if(byte_cnt==0) i2cregister <= data; // feeding one large buffer max. 10 bytes - i2c wip
-//           if(byte_cnt==1) inbuffer[71:64] <= data;
-//           if(byte_cnt==2) inbuffer[63:56] <= data;
-//           if(byte_cnt==3) inbuffer[55:48] <= data;
+           if(byte_cnt==0) i2cregister <= data; // feeding one large buffer max. 10 bytes - i2c wip
+           if(byte_cnt==1) inbuffer[71:64] <= data;
+           if(byte_cnt==2) inbuffer[63:56] <= data;
+           if(byte_cnt==3) inbuffer[55:48] <= data;
 //           if(byte_cnt==4) inbuffer[47:40] <= data;
 //           if(byte_cnt==5) inbuffer[39:32] <= data;
 //           if(byte_cnt==6) inbuffer[31:24] <= data;
 //           if(byte_cnt==7) inbuffer[23:16] <= data;
-//           if(byte_cnt==8) inbuffer[15:8] <= data;
-//           if(byte_cnt==9) inbuffer[7:0] <= data;
+           if(byte_cnt==8) inbuffer[15:8] <= data;
+           if(byte_cnt==9) inbuffer[7:0] <= data;
+
+           if(byte_cnt==0 | byte_cnt==4) buffer[23:16] <= data;
+           if(byte_cnt==1 | byte_cnt==5) buffer[15:8]  <= data;
+           if(byte_cnt==2 | byte_cnt==6) buffer[7:0]   <= data;
+           if(byte_cnt==3) rx_freq <= {buffer, data};
+//           if(byte_cnt==4) rx_freq <= {i2cregister, inbuffer[71:48]};
+           if(byte_cnt==7) tx_freq <= {buffer, data};
+           if(byte_cnt==8) s_rate <= data;
+           if(byte_cnt==9) tx_level <= data;
 
            return_state <= Data2;
            state <= Ack;
        end
     Data2:
-       if(byte_cnt !=9) begin byte_cnt <= byte_cnt + 1'd1; state <= Data; end
+       if(byte_cnt != 9) begin byte_cnt <= byte_cnt + 1'd1; state <= Data; end
        else
            begin
                byte_cnt <= 1'd0;
@@ -175,7 +180,7 @@ always @(posedge clock)
             stop_flag <= 1;
             s_state <=  Stop2;
        end
-       else if(!SCL) s_state <= Stop;
+       else if(!SCL) s_state <= Stop; 
     Stop2:
         begin
             stop_flag <= 0;

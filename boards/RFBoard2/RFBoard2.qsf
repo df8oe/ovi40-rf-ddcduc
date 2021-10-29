@@ -377,6 +377,6 @@ set_global_assignment -name QII_AUTO_PACKED_REGISTERS NORMAL
 set_global_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION ON
 set_global_assignment -name OPTIMIZE_HOLD_TIMING "ALL PATHS"
 set_global_assignment -name PHYSICAL_SYNTHESIS_ASYNCHRONOUS_SIGNAL_PIPELINING ON
-set_location_assignment PLL_1 -to "timing:pll1|altpll:altpll_component|pll_10M_altpll:auto_generated"
-set_location_assignment PLL_2 -to "timing:pll1|altpll:altpll_component|pll_rx_153m6_altpll:auto_generated"
+set_location_assignment PLL_2 -to "transceiver:trx|pll_10M:p10M|altpll:altpll_component"
+set_location_assignment PLL_1 -to "transceiver:trx|pll_rx_153m6:prx|altpll:altpll_component"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

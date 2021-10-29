@@ -29,6 +29,7 @@ set_global_assignment -name TOP_LEVEL_ENTITY RFBoard1
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:00:26  FEBRUARY 20, 2021"
 set_global_assignment -name LAST_QUARTUS_VERSION "20.1.1 Lite Edition"
+set_global_assignment -name NUM_PARALLEL_PROCESSORS 4
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY build
 set_global_assignment -name USE_GENERATED_PHYSICAL_CONSTRAINTS OFF -section_id eda_blast_fpga
 set_global_assignment -name CYCLONEII_OPTIMIZATION_TECHNIQUE SPEED
@@ -212,4 +213,6 @@ set_global_assignment -name VERILOG_FILE ../../modules/CicInterpM5.v
 set_global_assignment -name VERILOG_FILE ../../modules/CicDec10.v
 set_global_assignment -name VERILOG_FILE ../../modules/cdc_sync.v
 set_global_assignment -name CDF_FILE RFBoard1.cdf
+set_location_assignment PLL_1 -to "transceiver:trx|pll_10M:p10M|altpll:altpll_component"
+set_location_assignment PLL_2 -to "transceiver:trx|pll_rx_153m6:prx|altpll:altpll_component"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

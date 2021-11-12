@@ -24,11 +24,11 @@
 
 
 set_global_assignment -name FAMILY "Cyclone 10 LP"
-set_global_assignment -name DEVICE 10CL025ZU256I8G
+set_global_assignment -name DEVICE 10CL016ZU256I8G
 set_global_assignment -name TOP_LEVEL_ENTITY RFBoard2
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "18:00:26  FEBRUARY 20, 2021"
-set_global_assignment -name LAST_QUARTUS_VERSION "20.1.1 Lite Edition"
+set_global_assignment -name LAST_QUARTUS_VERSION "21.1.0 Lite Edition"
 set_global_assignment -name NUM_PARALLEL_PROCESSORS 4
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY build
 set_global_assignment -name USE_GENERATED_PHYSICAL_CONSTRAINTS OFF -section_id eda_blast_fpga
@@ -196,7 +196,7 @@ set_location_assignment PIN_N16 -to _10M_in
 set_global_assignment -name DEVICE_FILTER_PACKAGE UFBGA
 set_global_assignment -name DEVICE_FILTER_PIN_COUNT 256
 set_global_assignment -name DEVICE_FILTER_SPEED_GRADE 8L
-set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
+set_global_assignment -name EDA_SIMULATION_TOOL "Questa Intel FPGA (Verilog)"
 set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST ON -section_id eda_simulation
@@ -241,47 +241,6 @@ set_instance_assignment -name IO_STANDARD "1.8 V" -to master_SDA
 set_global_assignment -name IP_SEARCH_PATHS ../../modules
 set_global_assignment -name SEARCH_PATH ../../modules/polyphase_filter
 set_global_assignment -name SEARCH_PATH ../../modules
-set_global_assignment -name VERILOG_FILE ../../modules/Polyphase_filter/firromH.v
-set_global_assignment -name QIP_FILE ../../modules/Polyphase_filter/firromH.qip
-set_global_assignment -name VERILOG_FILE ../../modules/Polyphase_filter/firram36.v
-set_global_assignment -name QIP_FILE ../../modules/Polyphase_filter/firram36.qip
-set_global_assignment -name VERILOG_FILE rfboard2.v
-set_global_assignment -name VERILOG_FILE ../../modules/VarCic.v
-set_global_assignment -name VERILOG_FILE ../../modules/transmitter.v
-set_global_assignment -name VERILOG_FILE ../../modules/transceiver.v
-set_global_assignment -name VERILOG_FILE ../../modules/reset.v
-set_global_assignment -name VERILOG_FILE ../../modules/receiver.v
-set_global_assignment -name VERILOG_FILE ../../modules/profile.v
-set_global_assignment -name QIP_FILE ../../modules/profile.qip
-set_global_assignment -name VERILOG_FILE ../../modules/pll_rx_153m6.v
-set_global_assignment -name QIP_FILE ../../modules/pll_rx_153m6.qip
-set_global_assignment -name VERILOG_FILE ../../modules/pll_10M.v
-set_global_assignment -name QIP_FILE ../../modules/pll_10M.qip
-set_global_assignment -name VERILOG_FILE ../../modules/mult_24Sx24S.v
-set_global_assignment -name QIP_FILE ../../modules/mult_24Sx24S.qip
-set_global_assignment -name VERILOG_FILE ../../modules/mult_16x16_uns.v
-set_global_assignment -name QIP_FILE ../../modules/mult_16x16_uns.qip
-set_global_assignment -name VERILOG_FILE ../../modules/i2s_module.v
-set_global_assignment -name VERILOG_FILE ../../modules/i2s_master_clocks.v
-set_global_assignment -name VERILOG_FILE ../../modules/i2c_rom_rf2.v
-set_global_assignment -name QIP_FILE ../../modules/i2c_rom_rf2.qip
-set_global_assignment -name VERILOG_FILE ../../modules/i2c_control.v
-set_global_assignment -name VERILOG_FILE ../../modules/firX8R8.v
-set_global_assignment -name VERILOG_FILE ../../modules/firram36I.v
-set_global_assignment -name QIP_FILE ../../modules/firram36I.qip
-set_global_assignment -name VERILOG_FILE ../../modules/FirInterp8RomI.v
-set_global_assignment -name QIP_FILE ../../modules/FirInterp8RomI.qip
-set_global_assignment -name VERILOG_FILE ../../modules/FirInterp8.v
-set_global_assignment -name VERILOG_FILE ../../modules/div2_posedge.v
-set_global_assignment -name VERILOG_FILE ../../modules/div2_negedge.v
-set_global_assignment -name VERILOG_FILE ../../modules/cordic_tx.v
-set_global_assignment -name VERILOG_FILE ../../modules/cordic_rx.v
-set_global_assignment -name VERILOG_FILE ../../modules/clkgen_init.v
-set_global_assignment -name VERILOG_FILE ../../modules/clip_led.v
-set_global_assignment -name VERILOG_FILE ../../modules/CicInterpM5.v
-set_global_assignment -name VERILOG_FILE ../../modules/CicDec10.v
-set_global_assignment -name VERILOG_FILE ../../modules/cdc_sync.v
-set_global_assignment -name CDF_FILE RFBoard2.cdf
 set_instance_assignment -name IO_STANDARD "1.8 V" -to level_pwm
 set_instance_assignment -name IO_STANDARD "1.8 V" -to adc2_data[0]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to adc2_data[1]
@@ -377,6 +336,45 @@ set_global_assignment -name QII_AUTO_PACKED_REGISTERS NORMAL
 set_global_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION ON
 set_global_assignment -name OPTIMIZE_HOLD_TIMING "ALL PATHS"
 set_global_assignment -name PHYSICAL_SYNTHESIS_ASYNCHRONOUS_SIGNAL_PIPELINING ON
-set_location_assignment PLL_2 -to "transceiver:trx|pll_10M:p10M|altpll:altpll_component"
-set_location_assignment PLL_1 -to "transceiver:trx|pll_rx_153m6:prx|altpll:altpll_component"
+set_location_assignment PLL_4 -to "transceiver:trx|pll_10M:p10M|altpll:altpll_component"
+set_location_assignment PLL_2 -to "transceiver:trx|pll_rx_153m6:prx|altpll:altpll_component"
+set_instance_assignment -name GLOBAL_SIGNAL GLOBAL_CLOCK -to "transceiver:trx|pll_rx_153m6:prx|altpll:altpll_component|pll_rx_153m6_altpll:auto_generated|wire_pll1_clk[2]"
+set_instance_assignment -name GLOBAL_SIGNAL GLOBAL_CLOCK -to "transceiver:trx|pll_rx_153m6:prx|altpll:altpll_component|pll_rx_153m6_altpll:auto_generated|wire_pll1_clk[1]"
+set_instance_assignment -name GLOBAL_SIGNAL GLOBAL_CLOCK -to "transceiver:trx|pll_rx_153m6:prx|altpll:altpll_component|pll_rx_153m6_altpll:auto_generated|wire_pll1_clk[0]"
+set_instance_assignment -name GLOBAL_SIGNAL GLOBAL_CLOCK -to "transceiver:trx|pll_10M:p10M|altpll:altpll_component|pll_10M_altpll:auto_generated|wire_pll1_clk[1]"
+set_global_assignment -name VERILOG_FILE ../../modules/Polyphase_filter/firromH.v
+set_global_assignment -name QIP_FILE ../../modules/Polyphase_filter/firromH.qip
+set_global_assignment -name QIP_FILE ../../modules/Polyphase_filter/firram36.qip
+set_global_assignment -name VERILOG_FILE rfboard2.v
+set_global_assignment -name VERILOG_FILE ../../modules/VarCic.v
+set_global_assignment -name VERILOG_FILE ../../modules/transmitter.v
+set_global_assignment -name VERILOG_FILE ../../modules/transceiver.v
+set_global_assignment -name VERILOG_FILE ../../modules/reset.v
+set_global_assignment -name VERILOG_FILE ../../modules/receiver.v
+set_global_assignment -name VERILOG_FILE ../../modules/profile.v
+set_global_assignment -name QIP_FILE ../../modules/profile.qip
+set_global_assignment -name QIP_FILE ../../modules/pll_rx_153m6.qip
+set_global_assignment -name QIP_FILE ../../modules/pll_10M.qip
+set_global_assignment -name QIP_FILE ../../modules/mult_24Sx24S.qip
+set_global_assignment -name QIP_FILE ../../modules/mult_16x16_uns.qip
+set_global_assignment -name VERILOG_FILE ../../modules/i2s_module.v
+set_global_assignment -name VERILOG_FILE ../../modules/i2s_master_clocks.v
+set_global_assignment -name VERILOG_FILE ../../modules/i2c_rom_rf2.v
+set_global_assignment -name QIP_FILE ../../modules/i2c_rom_rf2.qip
+set_global_assignment -name VERILOG_FILE ../../modules/i2c_control.v
+set_global_assignment -name VERILOG_FILE ../../modules/firX8R8.v
+set_global_assignment -name QIP_FILE ../../modules/firram36I.qip
+set_global_assignment -name VERILOG_FILE ../../modules/FirInterp8RomI.v
+set_global_assignment -name QIP_FILE ../../modules/FirInterp8RomI.qip
+set_global_assignment -name VERILOG_FILE ../../modules/FirInterp8.v
+set_global_assignment -name VERILOG_FILE ../../modules/div2_posedge.v
+set_global_assignment -name VERILOG_FILE ../../modules/div2_negedge.v
+set_global_assignment -name VERILOG_FILE ../../modules/cordic_tx.v
+set_global_assignment -name VERILOG_FILE ../../modules/cordic_rx.v
+set_global_assignment -name VERILOG_FILE ../../modules/clkgen_init.v
+set_global_assignment -name VERILOG_FILE ../../modules/clip_led.v
+set_global_assignment -name VERILOG_FILE ../../modules/CicInterpM5.v
+set_global_assignment -name VERILOG_FILE ../../modules/CicDec10.v
+set_global_assignment -name VERILOG_FILE ../../modules/cdc_sync.v
+set_global_assignment -name CDF_FILE RFBoard2.cdf
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

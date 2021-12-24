@@ -25,7 +25,7 @@ This board was capable to work from 15KHz...76.8MHz (all amateur radio bands fro
 	- TX 15KHz...76.8MHz
 	- configuration via "tiny I2C" (just accepting 10 byte configuration data, no read)
 	- data in/out via SAI
-	- sample rates 48/92/196 ksps
+	- sample rates 48/96/192 ksps
 
 ##### to do:
 	- extended I2C configuration using registers and read/write :construction:

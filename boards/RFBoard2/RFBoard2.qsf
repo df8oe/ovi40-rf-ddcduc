@@ -128,7 +128,6 @@ set_location_assignment PIN_T9 -to data_clk_p
 set_location_assignment PIN_P14 -to txnrx
 set_location_assignment PIN_R10 -to fb_clk_p
 set_location_assignment PIN_R11 -to tx_frame_p
-set_location_assignment PIN_J14 -to nresetb
 set_location_assignment PIN_R16 -to enable
 set_location_assignment PIN_M15 -to rx_frame_p
 set_location_assignment PIN_N15 -to ad936x_p1[0]
@@ -265,7 +264,6 @@ set_instance_assignment -name IO_STANDARD "1.8 V" -to data_clk_p
 set_instance_assignment -name IO_STANDARD "1.8 V" -to txnrx
 set_instance_assignment -name IO_STANDARD "1.8 V" -to fb_clk_p
 set_instance_assignment -name IO_STANDARD "1.8 V" -to tx_frame_p
-set_instance_assignment -name IO_STANDARD "1.8 V" -to nresetb
 set_instance_assignment -name IO_STANDARD "1.8 V" -to enable
 set_instance_assignment -name IO_STANDARD "1.8 V" -to rx_frame_p
 set_instance_assignment -name IO_STANDARD "1.8 V" -to _10M_out
@@ -355,7 +353,6 @@ set_global_assignment -name VERILOG_FILE ../../modules/profile.v
 set_global_assignment -name QIP_FILE ../../modules/profile.qip
 set_global_assignment -name QIP_FILE ../../modules/pll_rx_153m6.qip
 set_global_assignment -name QIP_FILE ../../modules/pll_10M.qip
-set_global_assignment -name QIP_FILE ../../modules/mult_24Sx24S.qip
 set_global_assignment -name QIP_FILE ../../modules/mult_16x16_uns.qip
 set_global_assignment -name VERILOG_FILE ../../modules/i2s_module.v
 set_global_assignment -name VERILOG_FILE ../../modules/i2s_master_clocks.v

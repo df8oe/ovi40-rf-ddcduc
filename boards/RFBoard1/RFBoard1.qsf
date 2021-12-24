@@ -188,8 +188,6 @@ set_global_assignment -name VERILOG_FILE ../../modules/pll_rx_153m6.v
 set_global_assignment -name QIP_FILE ../../modules/pll_rx_153m6.qip
 set_global_assignment -name VERILOG_FILE ../../modules/pll_10M.v
 set_global_assignment -name QIP_FILE ../../modules/pll_10M.qip
-set_global_assignment -name VERILOG_FILE ../../modules/mult_24Sx24S.v
-set_global_assignment -name QIP_FILE ../../modules/mult_24Sx24S.qip
 set_global_assignment -name VERILOG_FILE ../../modules/mult_16x16_uns.v
 set_global_assignment -name QIP_FILE ../../modules/mult_16x16_uns.qip
 set_global_assignment -name VERILOG_FILE ../../modules/i2s_module.v

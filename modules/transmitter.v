@@ -47,8 +47,8 @@ localparam [9:0] CiCInterpolateRate =  320; // CLOCK_FREQ / (fixed_interpolation
 
 // TX phase count
 localparam [63:0] B58 = 1<<58; // 2^58 
-localparam [31:0] M2 = (((B58/CLOCK_FREQ)+1)>>1); // 2^57 / CLOCK_FREQ rounded 
-localparam [31:0] M3 = 1 << 24; //  M3 = 2^24, used to round the result
+localparam [63:0] M2 = (((B58/CLOCK_FREQ)+1)>>1); // 2^57 / CLOCK_FREQ rounded 
+localparam [63:0] M3 = 1 << 24; //  M3 = 2^24, used to round the result
 
 wire [63:0] ratio = tx_freq * M2 + M3;
 wire [31:0] tx_tune_phase = ratio[56:25];

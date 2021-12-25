@@ -42,7 +42,7 @@ wire signed [21:0] cordic_outdata_Q;
 
 cordic_rx cordic_inst(
   .clock(clock),
-  .in_data({adc_data, adc_data[0], adc_data[0]}),
+  .in_data({adc_data, 2'b0}),
   .frequency(rx_tune_phase),
   .out_data_I(cordic_outdata_I),
   .out_data_Q(cordic_outdata_Q)
